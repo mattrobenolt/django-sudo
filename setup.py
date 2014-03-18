@@ -3,7 +3,7 @@
 django-sudo
 ~~~~~~~~~~~
 
-Django backend for python-casscache
+Sudo mode.
 
 :copyright: (c) 2014 by Matt Robenolt.
 :license: BSD, see LICENSE for more details.
@@ -16,7 +16,7 @@ setup(
     author='Matt Robenolt',
     author_email='matt@ydekproductions.com',
     url='https://github.com/mattrobenolt/django-sudo',
-    description='',
+    description='Sudo mode',
     license='BSD',
     long_description=__doc__,
     packages=find_packages(exclude=['tests']),
