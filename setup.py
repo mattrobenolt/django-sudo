@@ -23,7 +23,6 @@ setup(
     install_requires=[
         'Django',
     ],
-    py_modules=['django_sudo'],
     zip_safe=True,
     classifiers=[
         'Development Status :: 4 - Beta',
