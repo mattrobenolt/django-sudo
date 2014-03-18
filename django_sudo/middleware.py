@@ -10,10 +10,14 @@ from django_sudo.utils import has_sudo_privileges
 
 
 class SudoMiddleware(object):
+    def has_sudo_privileges(self, request):
+        ## Override me to alter behavior
+        return has_sudo_privileges(request)
+
     def process_request(self, request):
         assert hasattr(request, 'session'), 'django_sudo depends on SessionMiddleware!'
 
-        request.is_sudo = lambda: has_sudo_privileges(request)
+        request.is_sudo = lambda: self.has_sudo_privileges(request)
 
     def process_response(self, request, response):
         is_sudo = getattr(request, '_sudo', None)
