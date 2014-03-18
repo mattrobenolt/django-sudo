@@ -1,3 +1,2 @@
 include setup.py README.md MANIFEST.in LICENSE
-exclude example/
 global-exclude *~
