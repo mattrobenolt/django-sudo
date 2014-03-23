@@ -12,7 +12,8 @@ from django_sudo import COOKIE_NAME, COOKIE_MAX_AGE
 
 def grant_sudo_privileges(request, max_age=COOKIE_MAX_AGE):
     """
-    Assigns a random token to the user's session that allows them to have elevated permissions
+    Assigns a random token to the user's session
+    that allows them to have elevated permissions
     """
     # Token doesn't need to be unique,
     # just needs to be unpredictable and match the cookie and the session

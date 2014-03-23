@@ -15,7 +15,10 @@ class SudoMiddleware(object):
         return has_sudo_privileges(request)
 
     def process_request(self, request):
-        assert hasattr(request, 'session'), 'django_sudo depends on SessionMiddleware!'
+        assert (
+            hasattr(request, 'session'),
+            'django_sudo depends on SessionMiddleware!'
+        )
 
         request.is_sudo = lambda: self.has_sudo_privileges(request)
 
@@ -30,7 +33,8 @@ class SudoMiddleware(object):
             response.delete_cookie(COOKIE_NAME)
             return response
 
-        # Sudo mode has been granted, and we have a token to send back to the user agent
+        # Sudo mode has been granted,
+        # and we have a token to send back to the user agent
         if is_sudo is True and hasattr(request, '_sudo_token'):
             token = request._sudo_token
             max_age = request._sudo_max_age
