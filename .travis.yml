@@ -18,3 +18,9 @@ script:
   - py.test tests/*.py --cov django_sudo --cov-report term-missing
 after_success:
   - coveralls
+matrix:
+  exclude:
+    - python: "2.6"
+      env: DJANGO="https://www.djangoproject.com/download/1.7b1/tarball/"
+    - python: "2.6"
+      env: DJANGO="-e git+git://github.com/django/django.git#egg=Django"
