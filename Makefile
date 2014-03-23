@@ -1,3 +1,7 @@
+dev:
+	pip install -e .
+	pip install "file://`pwd`#egg=django_sudo[tests]"
+
 clean:
 	rm -f *.egg-info
 	rm -rf dist build
@@ -5,4 +9,4 @@ clean:
 publish:
 	python setup.py sdist bdist_wheel upload
 
-.PHONY: clean publish
+.PHONY: dev clean publish
