@@ -15,10 +15,7 @@ class SudoMiddleware(object):
         return has_sudo_privileges(request)
 
     def process_request(self, request):
-        assert (
-            hasattr(request, 'session'),
-            'django_sudo depends on SessionMiddleware!'
-        )
+        assert hasattr(request, 'session'), 'django_sudo depends on SessionMiddleware!'  # noqa
 
         request.is_sudo = lambda: self.has_sudo_privileges(request)
 

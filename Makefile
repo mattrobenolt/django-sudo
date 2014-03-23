@@ -1,6 +1,6 @@
 clean:
 	rm -f *.egg-info
-	rm -rf dist
+	rm -rf dist build
 
 publish:
 	python setup.py sdist bdist_wheel upload

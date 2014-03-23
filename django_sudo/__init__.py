@@ -10,7 +10,7 @@ from django.conf import settings
 try:
     VERSION = __import__('pkg_resources') \
         .get_distribution('django_sudo').version
-except Exception as e:
+except Exception as e:  # pragma: no cover
     VERSION = 'unknown'
 
 

@@ -1,0 +1,5 @@
+[run]
+branch = True
+
+[paths]
+source = django_sudo

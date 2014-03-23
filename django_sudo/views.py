@@ -31,6 +31,9 @@ from django_sudo.utils import grant_sudo_privileges
 @login_required
 def sudo(request, template_name='sudo.html', extra_context=None):
     redirect_to = request.REQUEST.get(REDIRECT_FIELD_NAME, REDIRECT_URL)
+    # Make sure we're not redirecting to other sites
+    if not is_safe_url(url=redirect_to, host=request.get_host()):
+        redirect_to = resolve_url(REDIRECT_URL)
 
     if request.is_sudo():
         return HttpResponseRedirect(redirect_to)
@@ -38,8 +41,6 @@ def sudo(request, template_name='sudo.html', extra_context=None):
     form = SudoForm(request.user, request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
-            if not is_safe_url(url=redirect_to, host=request.get_host()):
-                redirect_to = resolve_url(REDIRECT_URL)
             grant_sudo_privileges(request)
             return HttpResponseRedirect(redirect_to)
 
