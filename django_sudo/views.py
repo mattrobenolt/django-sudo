@@ -13,7 +13,6 @@ except ImportError:     # Python 2
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, QueryDict
-from django.shortcuts import resolve_url
 from django.template.response import TemplateResponse
 from django.utils.http import is_safe_url
 from django.views.decorators.debug import sensitive_post_parameters
@@ -23,6 +22,45 @@ from django.views.decorators.csrf import csrf_protect
 from django_sudo import REDIRECT_FIELD_NAME, REDIRECT_URL
 from django_sudo.forms import SudoForm
 from django_sudo.utils import grant_sudo_privileges
+
+try:
+    from django.shortcuts import resolve_url
+except ImportError:  # pragma: no cover
+    # Django <1.5 doesn't have `resolve_url`
+    from django.core import urlresolvers
+
+    # resolve_url yanked from Django 1.5.5
+    def resolve_url(to, *args, **kwargs):
+        """
+        Return a URL appropriate for the arguments passed.
+
+        The arguments could be:
+
+            * A model: the model's `get_absolute_url()` function will be called.
+
+            * A view name, possibly with arguments: `urlresolvers.reverse()` will
+              be used to reverse-resolve the name.
+
+            * A URL, which will be returned as-is.
+
+        """
+        # If it's a model, use get_absolute_url()
+        if hasattr(to, 'get_absolute_url'):
+            return to.get_absolute_url()
+
+        # Next try a reverse URL resolution.
+        try:
+            return urlresolvers.reverse(to, args=args, kwargs=kwargs)
+        except urlresolvers.NoReverseMatch:
+             # If this is a callable, re-raise.
+            if callable(to):
+                raise
+            # If this doesn't "feel" like a URL, re-raise.
+            if '/' not in to and '.' not in to:
+                raise
+
+        # Finally, fall back and assume it's a URL
+        return to
 
 
 @sensitive_post_parameters()
