@@ -14,7 +14,7 @@ from django_sudo.utils import has_sudo_privileges
 
 class SudoMiddleware(object):
     def has_sudo_privileges(self, request):
-        ## Override me to alter behavior
+        # Override me to alter behavior
         return has_sudo_privileges(request)
 
     def process_request(self, request):
