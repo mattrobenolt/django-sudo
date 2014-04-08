@@ -5,7 +5,7 @@ django_sudo.middleware
 :copyright: (c) 2014 by Matt Robenolt.
 :license: BSD, see LICENSE for more details.
 """
-from django_sudo import (
+from django_sudo.settings import (
     COOKIE_DOMAIN, COOKIE_HTTPONLY, COOKIE_NAME,
     COOKIE_PATH, COOKIE_SECURE,
 )

@@ -2,7 +2,7 @@ from .base import BaseTestCase
 
 from django.template.response import TemplateResponse
 
-from django_sudo import REDIRECT_FIELD_NAME, REDIRECT_URL
+from django_sudo.settings import REDIRECT_FIELD_NAME, REDIRECT_URL
 from django_sudo.views import (
     sudo,
     redirect_to_sudo,

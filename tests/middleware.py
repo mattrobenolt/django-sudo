@@ -2,7 +2,7 @@ from .base import BaseTestCase
 
 from django.http import HttpResponse
 
-from django_sudo import COOKIE_NAME
+from django_sudo.settings import COOKIE_NAME
 from django_sudo.middleware import SudoMiddleware
 from django_sudo.utils import (
     grant_sudo_privileges,

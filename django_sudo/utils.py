@@ -7,7 +7,7 @@ django_sudo.utils
 """
 from django.utils.crypto import get_random_string
 
-from django_sudo import COOKIE_NAME, COOKIE_AGE
+from django_sudo.settings import COOKIE_NAME, COOKIE_AGE
 
 
 def grant_sudo_privileges(request, max_age=COOKIE_AGE):

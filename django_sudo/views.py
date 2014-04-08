@@ -19,7 +19,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 
-from django_sudo import REDIRECT_FIELD_NAME, REDIRECT_URL
+from django_sudo.settings import REDIRECT_FIELD_NAME, REDIRECT_URL
 from django_sudo.forms import SudoForm
 from django_sudo.utils import grant_sudo_privileges
 
