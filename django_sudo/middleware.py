@@ -5,7 +5,10 @@ django_sudo.middleware
 :copyright: (c) 2014 by Matt Robenolt.
 :license: BSD, see LICENSE for more details.
 """
-from django_sudo import COOKIE_NAME
+from django_sudo import (
+    COOKIE_DOMAIN, COOKIE_HTTPONLY, COOKIE_NAME,
+    COOKIE_PATH, COOKIE_SECURE,
+)
 from django_sudo.utils import has_sudo_privileges
 
 
@@ -38,8 +41,10 @@ class SudoMiddleware(object):
             response.set_cookie(
                 COOKIE_NAME, token,
                 max_age=max_age,  # If max_age is None, it's a session cookie
-                secure=request.is_secure(),
-                httponly=True,  # Not accessible by JavaScript
+                secure=request.is_secure() if COOKIE_SECURE is None else COOKIE_SECURE,
+                httponly=COOKIE_HTTPONLY,  # Not accessible by JavaScript
+                path=COOKIE_PATH,
+                domain=COOKIE_DOMAIN,
             )
 
         return response

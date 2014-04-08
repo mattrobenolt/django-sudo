@@ -1,4 +1,4 @@
-from django_sudo import COOKIE_NAME, COOKIE_MAX_AGE
+from django_sudo import COOKIE_NAME, COOKIE_AGE
 from django_sudo.utils import (
     grant_sudo_privileges,
     revoke_sudo_privileges,
@@ -26,7 +26,7 @@ class GrantSudoPrivilegesTestCase(BaseTestCase):
     def test_grant_token_default_max_age(self):
         self.login()
         grant_sudo_privileges(self.request)
-        self.assertRequestHasToken(self.request, COOKIE_MAX_AGE)
+        self.assertRequestHasToken(self.request, COOKIE_AGE)
 
     def test_grant_token_explicit_max_age(self):
         self.login()

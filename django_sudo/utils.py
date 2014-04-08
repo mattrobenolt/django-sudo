@@ -7,10 +7,10 @@ django_sudo.utils
 """
 from django.utils.crypto import get_random_string
 
-from django_sudo import COOKIE_NAME, COOKIE_MAX_AGE
+from django_sudo import COOKIE_NAME, COOKIE_AGE
 
 
-def grant_sudo_privileges(request, max_age=COOKIE_MAX_AGE):
+def grant_sudo_privileges(request, max_age=COOKIE_AGE):
     """
     Assigns a random token to the user's session
     that allows them to have elevated permissions
