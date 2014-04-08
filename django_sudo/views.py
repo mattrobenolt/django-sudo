@@ -52,7 +52,7 @@ except ImportError:  # pragma: no cover
         try:
             return urlresolvers.reverse(to, args=args, kwargs=kwargs)
         except urlresolvers.NoReverseMatch:
-             # If this is a callable, re-raise.
+            # If this is a callable, re-raise.
             if callable(to):
                 raise
             # If this doesn't "feel" like a URL, re-raise.

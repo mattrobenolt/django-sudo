@@ -13,9 +13,6 @@ from django_sudo.utils import (
 class SudoMiddlewareTestCase(BaseTestCase):
     middleware = SudoMiddleware()
 
-    # def test_has_sudo_privileges(self):
-    #     self.middleware.has_sudo_privileges(self.request)
-
     def test_process_request_raises_without_session(self):
         del self.request.session
         with self.assertRaises(AssertionError):
