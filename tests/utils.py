@@ -25,13 +25,20 @@ class GrantSudoPrivilegesTestCase(BaseTestCase):
 
     def test_grant_token_default_max_age(self):
         self.login()
-        grant_sudo_privileges(self.request)
+        token = grant_sudo_privileges(self.request)
+        self.assertIsNotNone(token)
         self.assertRequestHasToken(self.request, COOKIE_AGE)
 
     def test_grant_token_explicit_max_age(self):
         self.login()
-        grant_sudo_privileges(self.request, 60)
+        token = grant_sudo_privileges(self.request, 60)
+        self.assertIsNotNone(token)
         self.assertRequestHasToken(self.request, 60)
+
+    def test_without_user(self):
+        delattr(self.request, 'user')
+        token = grant_sudo_privileges(self.request)
+        self.assertIsNone(token)
 
 
 class RevokeSudoPrivilegesTestCase(BaseTestCase):

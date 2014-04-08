@@ -15,8 +15,15 @@ def grant_sudo_privileges(request, max_age=COOKIE_AGE):
     Assigns a random token to the user's session
     that allows them to have elevated permissions
     """
-    if not request.user.is_authenticated():
+    user = getattr(request, 'user', None)
+
+    # If there's not a user on the request, just noop
+    if user is None:
+        return
+
+    if not user.is_authenticated():
         raise ValueError('User needs to be logged in to be elevated to sudo')
+
     # Token doesn't need to be unique,
     # just needs to be unpredictable and match the cookie and the session
     token = get_random_string()
