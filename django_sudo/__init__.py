@@ -8,5 +8,5 @@ django_sudo
 try:
     VERSION = __import__('pkg_resources') \
         .get_distribution('django_sudo').version
-except Exception as e:  # pragma: no cover
+except Exception:  # pragma: no cover
     VERSION = 'unknown'
