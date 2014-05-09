@@ -7,7 +7,8 @@ django_sudo.views
 """
 try:
     from urllib.parse import urlparse, urlunparse
-except ImportError:     # Python 2
+except ImportError:  # pragma: no cover
+    # Python 2 fallback
     from urlparse import urlparse, urlunparse  # noqa
 
 from django.contrib.auth.decorators import login_required
