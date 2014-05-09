@@ -31,7 +31,7 @@ class SudoMiddlewareTestCase(BaseTestCase):
         self.middleware.process_request(self.request)
         grant_sudo_privileges(self.request)
         response = self.middleware.process_response(self.request, HttpResponse())
-        morsels = response.cookies.items()
+        morsels = list(response.cookies.items())
         self.assertEqual(len(morsels), 1)
         self.assertEqual(morsels[0][0], COOKIE_NAME)
         _, sudo = morsels[0]
@@ -51,7 +51,7 @@ class SudoMiddlewareTestCase(BaseTestCase):
         self.middleware.process_request(self.request)
         grant_sudo_privileges(self.request)
         response = self.middleware.process_response(self.request, HttpResponse())
-        morsels = response.cookies.items()
+        morsels = list(response.cookies.items())
         self.assertEqual(len(morsels), 1)
         self.assertEqual(morsels[0][0], COOKIE_NAME)
         _, sudo = morsels[0]
@@ -65,7 +65,7 @@ class SudoMiddlewareTestCase(BaseTestCase):
         self.request.COOKIES[COOKIE_NAME] = self.request._sudo_token
         revoke_sudo_privileges(self.request)
         response = self.middleware.process_response(self.request, HttpResponse())
-        morsels = response.cookies.items()
+        morsels = list(response.cookies.items())
         self.assertEqual(len(morsels), 1)
         self.assertEqual(morsels[0][0], COOKIE_NAME)
         _, sudo = morsels[0]
@@ -82,5 +82,5 @@ class SudoMiddlewareTestCase(BaseTestCase):
         grant_sudo_privileges(self.request)
         revoke_sudo_privileges(self.request)
         response = self.middleware.process_response(self.request, HttpResponse())
-        morsels = response.cookies.items()
+        morsels = list(response.cookies.items())
         self.assertEqual(len(morsels), 0)
