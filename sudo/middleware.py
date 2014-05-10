@@ -18,8 +18,12 @@ class SudoMiddleware(object):
         return has_sudo_privileges(request)
 
     def process_request(self, request):
-        assert hasattr(request, 'session'), 'django-sudo depends on SessionMiddleware!'
-
+        assert hasattr(request, 'session'), (
+            "The Sudo middleware requires session middleware to be installed."
+            "Edit your MIDDLEWARE_CLASSES setting to insert "
+            "'django.contrib.sessions.middleware.SessionMiddleware' before "
+            "'sudo.middleware.SudoMiddleware'."
+        )
         request.is_sudo = lambda: self.has_sudo_privileges(request)
 
     def process_response(self, request, response):
