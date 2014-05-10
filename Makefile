@@ -1,6 +1,5 @@
 dev:
-	pip install -e .
-	pip install "file://`pwd`#egg=django_sudo[tests]"
+	pip install -r dev-requirements.txt
 
 test: lint
 	py.test -x
@@ -14,6 +13,7 @@ clean:
 	rm -rf dist build
 
 publish:
-	python setup.py sdist bdist_wheel upload
+	python setup.py sdist bdist_wheel
+	twine upload dist/django-sudo-*
 
 .PHONY: test lint dev clean publish
