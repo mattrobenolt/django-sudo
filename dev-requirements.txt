@@ -4,6 +4,7 @@ pytest
 pytest-cov
 pytest-django-lite
 sphinx
+sphinx_rtd_theme
 tox
 twine
 wheel
