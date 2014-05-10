@@ -5,7 +5,7 @@ test: lint
 	py.test -x
 
 lint:
-	flake8 django_sudo || exit 1
+	flake8 sudo || exit 1
 
 clean:
 	rm -rf *.egg-info

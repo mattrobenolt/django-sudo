@@ -1,6 +1,6 @@
 """
-django_sudo.views
-~~~~~~~~~~~~~~~~~
+sudo.views
+~~~~~~~~~~
 
 :copyright: (c) 2014 by Matt Robenolt.
 :license: BSD, see LICENSE for more details.
@@ -20,9 +20,9 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 
-from django_sudo.settings import REDIRECT_FIELD_NAME, REDIRECT_URL
-from django_sudo.forms import SudoForm
-from django_sudo.utils import grant_sudo_privileges
+from sudo.settings import REDIRECT_FIELD_NAME, REDIRECT_URL
+from sudo.forms import SudoForm
+from sudo.utils import grant_sudo_privileges
 
 try:
     from django.shortcuts import resolve_url
@@ -68,7 +68,7 @@ except ImportError:  # pragma: no cover
 @never_cache
 @csrf_protect
 @login_required
-def sudo(request, template_name='django_sudo/sudo.html', extra_context=None):
+def sudo(request, template_name='sudo/sudo.html', extra_context=None):
     redirect_to = request.REQUEST.get(REDIRECT_FIELD_NAME, REDIRECT_URL)
     # Make sure we're not redirecting to other sites
     if not is_safe_url(url=redirect_to, host=request.get_host()):
@@ -96,7 +96,7 @@ def redirect_to_sudo(next_url):
     """
     Redirects the user to the login page, passing the given 'next' page
     """
-    sudo_url_parts = list(urlparse(reverse('django_sudo.views.sudo')))
+    sudo_url_parts = list(urlparse(reverse('sudo.views.sudo')))
 
     querystring = QueryDict(sudo_url_parts[4], mutable=True)
     querystring[REDIRECT_FIELD_NAME] = next_url

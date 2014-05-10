@@ -1,15 +1,15 @@
 """
-django_sudo.middleware
-~~~~~~~~~~~~~~~~~~~~~~
+sudo.middleware
+~~~~~~~~~~~~~~~
 
 :copyright: (c) 2014 by Matt Robenolt.
 :license: BSD, see LICENSE for more details.
 """
-from django_sudo.settings import (
+from sudo.settings import (
     COOKIE_DOMAIN, COOKIE_HTTPONLY, COOKIE_NAME,
     COOKIE_PATH, COOKIE_SECURE,
 )
-from django_sudo.utils import has_sudo_privileges
+from sudo.utils import has_sudo_privileges
 
 
 class SudoMiddleware(object):
@@ -18,7 +18,7 @@ class SudoMiddleware(object):
         return has_sudo_privileges(request)
 
     def process_request(self, request):
-        assert hasattr(request, 'session'), 'django_sudo depends on SessionMiddleware!'  # noqa
+        assert hasattr(request, 'session'), 'django-sudo depends on SessionMiddleware!'
 
         request.is_sudo = lambda: self.has_sudo_privileges(request)
 

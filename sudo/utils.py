@@ -1,13 +1,13 @@
 """
-django_sudo.utils
-~~~~~~~~~~~~~~~~~
+sudo.utils
+~~~~~~~~~~
 
 :copyright: (c) 2014 by Matt Robenolt.
 :license: BSD, see LICENSE for more details.
 """
 from django.utils.crypto import get_random_string
 
-from django_sudo.settings import COOKIE_NAME, COOKIE_AGE
+from sudo.settings import COOKIE_NAME, COOKIE_AGE
 
 
 def grant_sudo_privileges(request, max_age=COOKIE_AGE):

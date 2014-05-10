@@ -1,6 +1,6 @@
 from .base import BaseTestCase
-from django_sudo.signals import grant, revoke
-from django_sudo.utils import has_sudo_privileges, grant_sudo_privileges
+from sudo.signals import grant, revoke
+from sudo.utils import has_sudo_privileges, grant_sudo_privileges
 from django.contrib.auth.models import User
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 

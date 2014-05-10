@@ -6,5 +6,5 @@ except ImportError:
 
 urlpatterns = patterns(
     '',
-    url(r'^sudo/', 'django_sudo.views.sudo', name='sudo'),
+    url(r'^sudo/', 'sudo.views.sudo', name='sudo'),
 )

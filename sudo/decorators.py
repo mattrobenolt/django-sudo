@@ -1,18 +1,22 @@
 """
-django_sudo.decorators
-~~~~~~~~~~~~~~~~~~~~~~
+sudo.decorators
+~~~~~~~~~~~~~~~
 
 :copyright: (c) 2014 by Matt Robenolt.
 :license: BSD, see LICENSE for more details.
 """
 from functools import wraps
 
-from django_sudo.views import redirect_to_sudo
+from sudo.views import redirect_to_sudo
 
 
 def sudo_required(func):
     """
     Enforces a view to have elevated privileges
+
+    >>> @sudo_required
+    >>> def secure_page(request):
+    >>>     ...
     """
     @wraps(func)
     def inner(request, *args, **kwargs):

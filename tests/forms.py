@@ -1,7 +1,7 @@
 from .base import BaseTestCase
 
 from django.forms import ValidationError
-from django_sudo.forms import SudoForm
+from sudo.forms import SudoForm
 
 
 class SudoFormTestCase(BaseTestCase):

@@ -1,5 +1,5 @@
-from django_sudo.settings import COOKIE_NAME, COOKIE_AGE
-from django_sudo.utils import (
+from sudo.settings import COOKIE_NAME, COOKIE_AGE
+from sudo.utils import (
     grant_sudo_privileges,
     revoke_sudo_privileges,
     has_sudo_privileges,

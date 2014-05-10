@@ -1,6 +1,6 @@
 """
-django_sudo.forms
-~~~~~~~~~~~~~~~~~
+sudo.forms
+~~~~~~~~~~
 
 :copyright: (c) 2014 by Matt Robenolt.
 :license: BSD, see LICENSE for more details.
@@ -10,6 +10,9 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class SudoForm(forms.Form):
+    """
+    A simple password input form used by the default :func:`~sudo.views.sudo` view.
+    """
     password = forms.CharField(label=_('Password'), widget=forms.PasswordInput)
 
     def __init__(self, user, *args, **kwargs):

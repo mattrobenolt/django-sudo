@@ -1,7 +1,7 @@
 from .base import BaseTestCase
 
 from django.http import HttpResponse
-from django_sudo.decorators import sudo_required
+from sudo.decorators import sudo_required
 
 
 @sudo_required

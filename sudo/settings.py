@@ -1,6 +1,6 @@
 """
-django_sudo.settings
-~~~~~~~~~~~~~~~~~~~~
+sudo.settings
+~~~~~~~~~~~~~
 
 :copyright: (c) 2014 by Matt Robenolt.
 :license: BSD, see LICENSE for more details.

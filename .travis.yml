@@ -18,7 +18,7 @@ install:
   - make dev
 script:
   - make lint
-  - py.test tests/*.py --cov django_sudo --cov-report term-missing
+  - py.test tests/*.py --cov sudo --cov-report term-missing
 after_success:
   - coveralls
 matrix:

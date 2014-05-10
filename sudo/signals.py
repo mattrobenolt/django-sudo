@@ -1,6 +1,6 @@
 """
-django_sudo.signals
-~~~~~~~~~~~~~~~~~~~
+sudo.signals
+~~~~~~~~~~~~
 
 :copyright: (c) 2014 by Matt Robenolt.
 :license: BSD, see LICENSE for more details.
@@ -8,7 +8,7 @@ django_sudo.signals
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.dispatch import receiver
 
-from django_sudo.utils import grant_sudo_privileges, revoke_sudo_privileges
+from sudo.utils import grant_sudo_privileges, revoke_sudo_privileges
 
 
 @receiver(user_logged_in)
