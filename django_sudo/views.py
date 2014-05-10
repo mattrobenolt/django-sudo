@@ -68,7 +68,7 @@ except ImportError:  # pragma: no cover
 @never_cache
 @csrf_protect
 @login_required
-def sudo(request, template_name='sudo.html', extra_context=None):
+def sudo(request, template_name='django_sudo/sudo.html', extra_context=None):
     redirect_to = request.REQUEST.get(REDIRECT_FIELD_NAME, REDIRECT_URL)
     # Make sure we're not redirecting to other sites
     if not is_safe_url(url=redirect_to, host=request.get_host()):
