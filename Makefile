@@ -9,7 +9,8 @@ lint:
 	flake8 django_sudo || exit 1
 
 clean:
-	rm -f *.egg-info
+	rm -rf *.egg-info
+	rm -rf *.egg
 	rm -rf dist build
 
 publish:
