@@ -21,7 +21,7 @@ class SudoViewTestCase(BaseTestCase):
         self.request.is_sudo = lambda: False
         response = sudo(self.request)
         self.assertIsInstance(response, TemplateResponse)
-        self.assertEqual(response.template_name, 'sudo.html')  # default
+        self.assertEqual(response.template_name, 'django_sudo/sudo.html')  # default
         self.assertEqual(response.context_data[REDIRECT_FIELD_NAME], REDIRECT_URL)  # default
         form = response.context_data['form']
         self.assertIsInstance(form, SudoForm)
