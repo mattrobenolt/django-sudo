@@ -17,8 +17,7 @@ install:
   - pip install coveralls
   - make dev
 script:
-  - make lint
-  - py.test --cov sudo --cov-report term-missing
+  - make test
 after_success:
   - coveralls
 matrix:

@@ -2,7 +2,7 @@ dev:
 	pip install -r dev-requirements.txt
 
 test: lint
-	py.test -x
+	py.test --cov sudo --cov-report term-missing
 
 lint:
 	flake8 sudo || exit 1
