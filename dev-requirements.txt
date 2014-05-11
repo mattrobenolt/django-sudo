@@ -1,5 +1,6 @@
 -e .
 flake8
+invoke
 pytest
 pytest-cov
 pytest-django-lite

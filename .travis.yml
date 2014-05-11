@@ -15,9 +15,9 @@ env:
 install:
   - pip install $DJANGO
   - pip install coveralls
-  - make dev
+  - pip install -r dev-requirements.txt
 script:
-  - make test
+  - inv test
 after_success:
   - coveralls
 matrix:

@@ -19,7 +19,7 @@ environment. After creating an environment, install all dep dependencies with:
 
 .. code-block:: console
 
-    $ make dev
+    $ pip install -e dev-requirements.txt
 
 Running Tests
 ~~~~~~~~~~~~~
