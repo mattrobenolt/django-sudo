@@ -14,6 +14,6 @@ clean:
 
 publish:
 	python setup.py sdist bdist_wheel
-	twine upload dist/django-sudo-*
+	twine upload dist/*
 
 .PHONY: test lint dev clean publish
