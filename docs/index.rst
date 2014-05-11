@@ -29,5 +29,6 @@ Contents
    getting-started/index
    config/index
    contributing/index
+   how/index
    security/index
    changelog/index
