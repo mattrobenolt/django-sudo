@@ -70,3 +70,6 @@ This template gets rendered with the the following context:
 ``SUDO_REDIRECT_FIELD_NAME``
     The value of ``?next=/foo/``. If ``SUDO_REDIRECT_FIELD_NAME`` is ``name``, then expect to find
     ``{{ next }}`` in the context, with the value of ``/foo/``.
+
+
+After configuring things, we can now :doc:`start securing pages </usage/index>`.
