@@ -31,9 +31,8 @@ def release():
     with open('setup.py') as f:
         setup = f.read()
 
-    match = re.search(r"version='(.+?)'", setup)
-    assert match, 'No version found in setup.py?'
-    version = match.groups()[0]
+    version = run('python setup.py --version').stdout.strip()
+    assert version, 'No version found in setup.py?'
 
     print('### Releasing new version: {0}'.format(version))
     run('git tag {0}'.format(version))
