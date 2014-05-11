@@ -69,6 +69,11 @@ except ImportError:  # pragma: no cover
 @csrf_protect
 @login_required
 def sudo(request, template_name='sudo/sudo.html', extra_context=None):
+    """
+    The default view for the sudo mode page. The role of this page is to
+    prompt the user for their password again, and if successful, redirect
+    them back to ``next``.
+    """
     redirect_to = request.REQUEST.get(REDIRECT_FIELD_NAME, REDIRECT_URL)
     # Make sure we're not redirecting to other sites
     if not is_safe_url(url=redirect_to, host=request.get_host()):

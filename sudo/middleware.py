@@ -13,6 +13,10 @@ from sudo.utils import has_sudo_privileges
 
 
 class SudoMiddleware(object):
+    """
+    Middleware that contributes ``request.is_sudo()`` and sets the required
+    cookie for sudo mode to work correctly.
+    """
     def has_sudo_privileges(self, request):
         # Override me to alter behavior
         return has_sudo_privileges(request)

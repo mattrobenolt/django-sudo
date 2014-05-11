@@ -1,29 +1,33 @@
-.. django-sudo documentation master file, created by
-   sphinx-quickstart on Sun Apr 13 18:05:56 2014.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Welcome to ``django-sudo``
 ==========================
 
+``django-sudo`` is an implementation of GitHub's `Sudo Mode
+<https://github.com/blog/1513-introducing-github-sudo-mode>`_ for `Django
+<https://www.djangoproject.com/>`_.
+
+What is this for?
+~~~~~~~~~~~~~~~~~
+``django-sudo`` provides an extra layer of security for after a user is already logged in. Views can
+be decorated with :func:`@sudo_required <django_sudo.decorators.sudo_required>`, and then a user
+must re-enter their password to view that page. After verifying their password, that user has
+elevated permissions for the duration of ``SUDO_COOKIE_AGE``. This duration is independent of the
+normal session duration allowing short elevated permission durations, but retain long user sessions.
+
 Installation
-------------
+~~~~~~~~~~~~
 
 .. code-block:: console
 
     $ pip install django-sudo
 
-Contents:
+Contents
+~~~~~~~~
 
 .. toctree::
    :maxdepth: 2
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+   getting-started/index
+   config/index
+   contributing/index
+   security/index
+   changelog/index

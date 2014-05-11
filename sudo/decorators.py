@@ -12,7 +12,8 @@ from sudo.views import redirect_to_sudo
 
 def sudo_required(func):
     """
-    Enforces a view to have elevated privileges
+    Enforces a view to have elevated privileges.
+    Should likely be paired with ``@login_required``.
 
     >>> @sudo_required
     >>> def secure_page(request):
