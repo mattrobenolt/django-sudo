@@ -3,8 +3,6 @@
 django-sudo
 ~~~~~~~~~~~
 
-Sudo mode.
-
 :copyright: (c) 2014 by Matt Robenolt.
 :license: BSD, see LICENSE for more details.
 """
@@ -19,6 +17,10 @@ tests_require = [
     'pytest-django-lite',
     'flake8',
 ]
+
+
+with open('README.rst') as f:
+    long_description = f.read()
 
 
 class PyTest(TestCommand):
@@ -36,13 +38,13 @@ class PyTest(TestCommand):
 
 setup(
     name='django-sudo',
-    version='0.0.4',
+    version='1.0.0',
     author='Matt Robenolt',
     author_email='matt@ydekproductions.com',
     url='https://github.com/mattrobenolt/django-sudo',
-    description='Sudo mode',
+    description='Extra security for your sensitive pages',
     license='BSD',
-    long_description=__doc__,
+    long_description=long_description,
     packages=find_packages(exclude=['tests']),
     install_requires=install_requires,
     tests_require=tests_require,
