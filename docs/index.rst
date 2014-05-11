@@ -28,6 +28,7 @@ Contents
 
    getting-started/index
    config/index
+   usage/index
    contributing/index
    how/index
    security/index
