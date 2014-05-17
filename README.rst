@@ -9,6 +9,18 @@ django-sudo
 
 Sudo mode is an extra layer of security for your most sensitive pages.
 
+Installation
+~~~~~~~~~~~~
+
+.. code-block:: console
+
+    $ pip install django-sudo
+
+Compatibility
+~~~~~~~~~~~~~
+* Django 1.4-1.7
+* Python 2.6-3.4
+
 Resources
 ~~~~~~~~~
 * `Documentation <https://django-sudo.readthedocs.org/>`_
