@@ -24,6 +24,7 @@ Compatibility
 ~~~~~~~~~~~~~
 * Django 1.4-1.7
 * Python 2.6-3.4
+* pypy
 
 Contents
 ~~~~~~~~
