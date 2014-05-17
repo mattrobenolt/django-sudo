@@ -5,6 +5,8 @@ from sudo.utils import (
     has_sudo_privileges,
 )
 
+from django.core.signing import BadSignature
+
 from .base import BaseTestCase
 
 
@@ -74,13 +76,23 @@ class HasSudoPrivilegesTestCase(BaseTestCase):
 
     def test_cookie_and_token_match(self):
         self.login()
-        self.request.COOKIES[COOKIE_NAME] = 'abc123'
+        def get_signed_cookie(key, max_age=None):
+            return 'abc123'
         self.request.session[COOKIE_NAME] = 'abc123'
+        self.request.get_signed_cookie = get_signed_cookie
         self.assertTrue(has_sudo_privileges(self.request))
 
     def test_cookie_and_token_mismatch(self):
         self.login()
-        self.request.COOKIES[COOKIE_NAME] = 'nope'
+        def get_signed_cookie(key, max_age=None):
+            return 'nope'
+        self.request.session[COOKIE_NAME] = 'abc123'
+        self.assertFalse(has_sudo_privileges(self.request))
+
+    def test_cookie_bad_signature(self):
+        self.login()
+        def get_signed_cookie(key, max_age=None):
+            raise BadSignature
         self.request.session[COOKIE_NAME] = 'abc123'
         self.assertFalse(has_sudo_privileges(self.request))
 

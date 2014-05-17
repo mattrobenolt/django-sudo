@@ -13,6 +13,10 @@ from sudo.utils import (
 class SudoMiddlewareTestCase(BaseTestCase):
     middleware = SudoMiddleware()
 
+    def assertSignedCookieEqual(self, v1, v2, reason=None):
+        value, _, _ = v1.split(':')
+        return self.assertEqual(value, v2, reason)
+
     def test_process_request_raises_without_session(self):
         del self.request.session
         with self.assertRaises(AssertionError):
@@ -36,7 +40,7 @@ class SudoMiddlewareTestCase(BaseTestCase):
         self.assertEqual(morsels[0][0], COOKIE_NAME)
         _, sudo = morsels[0]
         self.assertEqual(sudo.key, COOKIE_NAME)
-        self.assertEqual(sudo.value, self.request._sudo_token)
+        self.assertSignedCookieEqual(sudo.value, self.request._sudo_token)
         self.assertEqual(sudo['max-age'], self.request._sudo_max_age)
         self.assertTrue(sudo['httponly'])
 

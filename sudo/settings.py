@@ -34,3 +34,6 @@ COOKIE_PATH = getattr(settings, 'SUDO_COOKIE_PATH', '/')
 # By default, this will match the current protocol. If your site is
 # https already, this will be True.
 COOKIE_SECURE = getattr(settings, 'SUDO_COOKIE_SECURE', None)
+
+# An extra salt to be added into the cookie signature
+COOKIE_SALT = getattr(settings, 'SUDO_COOKIE_SALT', '')

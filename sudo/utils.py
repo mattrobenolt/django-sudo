@@ -5,6 +5,7 @@ sudo.utils
 :copyright: (c) 2014 by Matt Robenolt.
 :license: BSD, see LICENSE for more details.
 """
+from django.core.signing import BadSignature
 from django.utils.crypto import get_random_string
 
 from sudo.settings import COOKIE_NAME, COOKIE_AGE
@@ -51,8 +52,9 @@ def has_sudo_privileges(request):
         try:
             request._sudo = (
                 request.user.is_authenticated() and
-                request.COOKIES[COOKIE_NAME] == request.session[COOKIE_NAME]
+                request.get_signed_cookie(COOKIE_NAME, max_age=COOKIE_AGE) ==
+                request.session[COOKIE_NAME]
             )
-        except KeyError:
+        except (KeyError, BadSignature):
             request._sudo = False
     return request._sudo

@@ -39,6 +39,9 @@ By default, all of the settings are optional and define sane and secure defaults
         https, we will set the ``secure`` flag on the cookie so it won't be transmitted over plain
         http. It is highly recommended that you only use ``django-sudo`` over https.
 
+``SUDO_COOKIE_SALT``
+    An extra salt to be added into the cookie signature. *Default: ''*
+
 Set up URLs
 ~~~~~~~~~~~
 

@@ -11,7 +11,6 @@ class BaseTestCase(unittest.TestCase):
     def setUp(self):
         self.request = self.get('/foo')
         self.request.session = {}
-        self.request.COOKIES = {}
         self.setUser(AnonymousUser())
 
     def get(self, *args, **kwargs):
