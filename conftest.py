@@ -11,6 +11,11 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 ]
 
+
+def pytest_report_header(config):
+    return 'made with love: <3'
+
+
 def pytest_configure(config):
     from django.conf import settings
 

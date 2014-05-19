@@ -76,6 +76,7 @@ class HasSudoPrivilegesTestCase(BaseTestCase):
 
     def test_cookie_and_token_match(self):
         self.login()
+
         def get_signed_cookie(key, max_age=None):
             return 'abc123'
         self.request.session[COOKIE_NAME] = 'abc123'
@@ -84,6 +85,7 @@ class HasSudoPrivilegesTestCase(BaseTestCase):
 
     def test_cookie_and_token_mismatch(self):
         self.login()
+
         def get_signed_cookie(key, max_age=None):
             return 'nope'
         self.request.session[COOKIE_NAME] = 'abc123'
@@ -91,6 +93,7 @@ class HasSudoPrivilegesTestCase(BaseTestCase):
 
     def test_cookie_bad_signature(self):
         self.login()
+
         def get_signed_cookie(key, max_age=None):
             raise BadSignature
         self.request.session[COOKIE_NAME] = 'abc123'
