@@ -24,7 +24,7 @@ def clean():
     run('rm -rf dist build')
 
 
-@task
+@task('clean')
 def release():
     "Cut a new release"
     version = run('python setup.py --version').stdout.strip()
