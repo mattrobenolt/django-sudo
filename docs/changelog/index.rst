@@ -1,6 +1,14 @@
 Changelog
 =========
 
+1.1.1
+~~~~~
+* Fixed a bug when using the new ``SUDO_COOKIE_SALT``.
+  If specifying a non-default salt, all cookies would be marked incorrectly
+  as invalid.
+* Don't use ``request.REQUEST`` anymore since that's deprecated in modern Django.
+  Always use ``request.GET`` instead since we never POSTed the ``next`` variable anyways.
+
 1.1.0
 ~~~~~
 * Switch to using signed cookies for the sudo cookie,
