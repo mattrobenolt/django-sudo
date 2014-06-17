@@ -11,7 +11,7 @@ def lint(verbose=False):
     run('flake8 sudo tests *.py {0}'.format('-v' if verbose else ''))
 
 
-@task('lint')
+@task(lint)
 def test(verbose=False):
     "Run tests using py.test"
     run('py.test --cov sudo --cov-report term-missing {0}'.format('-v' if verbose else ''))
@@ -24,7 +24,7 @@ def clean():
     run('rm -rf dist build')
 
 
-@task('clean')
+@task(clean)
 def release():
     "Cut a new release"
     version = run('python setup.py --version').stdout.strip()
