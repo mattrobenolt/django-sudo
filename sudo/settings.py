@@ -37,3 +37,5 @@ COOKIE_SECURE = getattr(settings, 'SUDO_COOKIE_SECURE', None)
 
 # An extra salt to be added into the cookie signature
 COOKIE_SALT = getattr(settings, 'SUDO_COOKIE_SALT', '')
+
+SUDO_FORM = getattr(settings, 'SUDO_FORM', 'sudo.forms.SudoForm')

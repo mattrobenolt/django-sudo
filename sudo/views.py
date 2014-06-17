@@ -15,14 +15,17 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, QueryDict
 from django.template.response import TemplateResponse
+from django.utils import importlib
 from django.utils.http import is_safe_url
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 
-from sudo.settings import REDIRECT_FIELD_NAME, REDIRECT_URL
-from sudo.forms import SudoForm
+from sudo.settings import REDIRECT_FIELD_NAME, REDIRECT_URL, SUDO_FORM
 from sudo.utils import grant_sudo_privileges
+
+FormPath, FormClass = '.'.join(SUDO_FORM.split('.')[:-1]), SUDO_FORM.split('.')[-1]
+SudoForm = getattr(importlib.import_module(FormPath), FormClass)
 
 try:
     from django.shortcuts import resolve_url
