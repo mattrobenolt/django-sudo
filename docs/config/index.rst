@@ -42,6 +42,10 @@ By default, all of the settings are optional and define sane and secure defaults
 ``SUDO_COOKIE_SALT``
     An extra salt to be added into the cookie signature. *Default: ''*
 
+``SUDO_FORM``
+    The form to use within the ``sudo`` view. Override if you want to change the behavior or add
+    additional fields. *Default: sudo.forms.SudoForm*
+
 Set up URLs
 ~~~~~~~~~~~
 
