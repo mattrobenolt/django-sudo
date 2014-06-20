@@ -7,6 +7,23 @@ from django.test import RequestFactory
 from django.contrib.auth.models import User, AnonymousUser
 
 
+class StubPasswordBackend(object):
+    """ Stub backend
+
+    Always authenticates when the password matches self.password
+
+    """
+    password = "stub"
+
+    def authenticate(self, username, password):
+        if password == self.password:
+            return User()
+
+
+class FooPasswordBackend(StubPasswordBackend):
+    password = "foo"
+
+
 class BaseTestCase(unittest.TestCase):
     def setUp(self):
         self.request = self.get('/foo')
@@ -24,5 +41,4 @@ class BaseTestCase(unittest.TestCase):
 
     def login(self):
         user = User()
-        user.set_password('foo')
         self.setUser(user)

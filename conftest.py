@@ -20,6 +20,10 @@ def pytest_configure(config):
     from django.conf import settings
 
     settings.configure(
+        AUTHENTICATION_BACKENDS=[
+            'tests.base.FooPasswordBackend',
+            'tests.base.StubPasswordBackend',
+        ],
         DEBUG=True,
         DATABASE_ENGINE='sqlite3',
         DATABASES={
