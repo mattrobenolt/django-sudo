@@ -7,11 +7,12 @@ django-sudo
 .. image:: https://coveralls.io/repos/mattrobenolt/django-sudo/badge.png?branch=master
    :target: https://coveralls.io/r/mattrobenolt/django-sudo?branch=master
 
-Sudo mode is an extra layer of security for your most sensitive pages.
-
-This is an implementation of GitHub's `Sudo Mode
-<https://github.com/blog/1513-introducing-github-sudo-mode>`_ for `Django
-<https://www.djangoproject.com/>`_.
+..
+    Sudo mode is an extra layer of security for your most sensitive pages.
+    
+    This is an implementation of GitHub's `Sudo Mode
+    <https://github.com/blog/1513-introducing-github-sudo-mode>`_ for `Django
+    <https://www.djangoproject.com/>`_.
 
 What is this for?
 ~~~~~~~~~~~~~~~~~
