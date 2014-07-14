@@ -6,6 +6,7 @@ sudo.forms
 :license: BSD, see LICENSE for more details.
 """
 from django import forms
+from django.contrib import auth
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -20,6 +21,7 @@ class SudoForm(forms.Form):
         super(SudoForm, self).__init__(*args, **kwargs)
 
     def clean_password(self):
-        if not self.user.check_password(self.data['password']):
-            raise forms.ValidationError(_('Incorrect password'))
-        return self.data['password']
+        if auth.authenticate(username=self.user.username,
+                             password=self.data['password']):
+            return self.data['password']
+        raise forms.ValidationError(_('Incorrect password'))
