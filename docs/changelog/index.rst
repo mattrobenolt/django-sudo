@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.1.3
+~~~~~
+* Use ``constant_time_compare`` when verifying the correct sudo token.
+* Make sure to check against all ``AUTHENTICATION_BACKENDS`` for the ``SudoForm``.
+  See `#3 <https://github.com/mattrobenolt/django-sudo/pull/3>`_.
+
 1.1.2
 ~~~~~
 * Added new setting, ``SUDO_FORM`` which allows you to override the default form that is used.
