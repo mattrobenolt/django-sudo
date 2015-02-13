@@ -22,6 +22,7 @@ def clean():
     "Clean working directory"
     run('rm -rf *.egg-info *.egg')
     run('rm -rf dist build')
+    run('find . -name "*.pyc" -delete')
 
 
 @task(clean)
