@@ -14,7 +14,7 @@ install_requires = ['Django']
 tests_require = [
     'pytest',
     'pytest-cov',
-    'pytest-django-lite',
+    'pytest-django',
     'flake8',
 ]
 
