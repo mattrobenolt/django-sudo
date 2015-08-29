@@ -57,4 +57,3 @@ class SudoFormTestCase(BaseTestCase):
         self.assertTrue(
             SudoForm(self.user, {'password': 'foo'}).is_valid()
         )
-
