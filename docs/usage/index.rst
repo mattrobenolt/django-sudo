@@ -25,6 +25,24 @@ Once we have ``django-sudo`` :doc:`installed </getting-started/index>` and
     redirected to a page and prompted for their password. After entering their password, they'll be
     redirected back to this page to continue on what they were trying to do.
 
+.. class:: sudo.mixins.SudoMixin
+
+    ``SudoMixin`` provides an easy way to sudo a class-based view. Any view
+    that inherits from this mixin is automatically wrapped by the
+    ``@sudo_required`` decorator.
+
+    This works well with the ``LoginRequiredMixin`` from
+    `django-braces <https://django-braces.rtfd.org/>`_:
+
+    .. code-block:: python
+
+        from django.views import generic
+        from braces.views import LoginRequiredMixin
+        from sudo.mixins import SudoMixin
+
+        class SuperSecretView(LoginRequiredMixin, SudoMixin, generic.TemplateView):
+            template_name = 'secret/super-secret.html'
+
 .. method:: request.is_sudo()
 
 Returns a boolean to indicate if the current request is in sudo mode or not. This gets added on by
@@ -36,7 +54,7 @@ the :class:`~sudo.middleware.SudoMiddleware`. This is an shortcut for calling
     By default, you just need to add this into your ``MIDDLEWARE_CLASSES`` list.
 
     .. method:: has_sudo_privileges(self, request)
-    
+
     Subclass and override :func:`~sudo.middleware.SudoMiddleware.has_sudo_privileges` if you'd like
     to override the default behavior of :func:`request.is_sudo() <request.is_sudo()>`.
 
