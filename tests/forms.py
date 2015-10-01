@@ -1,7 +1,6 @@
 from .base import BaseTestCase
 from .models import EmailUser
 
-import django
 from django.forms import ValidationError
 from sudo.forms import SudoForm
 
