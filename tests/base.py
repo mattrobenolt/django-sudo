@@ -39,6 +39,6 @@ class BaseTestCase(unittest.TestCase):
     def setUser(self, user):
         self.user = self.request.user = user
 
-    def login(self):
-        user = User()
+    def login(self, user_class=User):
+        user = user_class()
         self.setUser(user)

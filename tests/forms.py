@@ -1,4 +1,5 @@
 from .base import BaseTestCase
+from .models import EmailUser
 
 from django.forms import ValidationError
 from sudo.forms import SudoForm
@@ -43,4 +44,10 @@ class SudoFormTestCase(BaseTestCase):
         self.assertEqual(
             SudoForm(self.user, {'password': password}).clean_password(),
             password
+        )
+
+    def test_integration_custom_user(self):
+        self.login(EmailUser)
+        self.assertTrue(
+            SudoForm(self.user, {'password': 'foo'}).is_valid()
         )

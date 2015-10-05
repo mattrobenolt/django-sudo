@@ -15,7 +15,10 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, QueryDict
 from django.template.response import TemplateResponse
-from django.utils import importlib
+try:
+    import importlib
+except ImportError:  # pragma: nocover
+    from django.utils import importlib
 from django.utils.http import is_safe_url
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
