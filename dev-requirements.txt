@@ -1,6 +1,6 @@
 -e .
 flake8
-invoke>=0.9.0,<0.10
+invoke>=0.11.1,<0.12
 pytest
 pytest-cov
 pytest-django
