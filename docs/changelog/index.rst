@@ -1,6 +1,16 @@
 Changelog
 =========
 
+1.2.0
+~~~~~
+* Verified compatibility with python 3.5 and pypy3
+* Verified compatibility with Django 1.8
+* Dropped support for python 3.2
+* Better support for custom User models.
+  See `#4 <https://github.com/mattrobenolt/django-sudo/pull/4>`_.
+* Added a ``SudoMixin`` for use with class based views.
+  See `#5 <https://github.com/mattrobenolt/django-sudo/pull/5>`_.
+
 1.1.3
 ~~~~~
 * Use ``constant_time_compare`` when verifying the correct sudo token.
