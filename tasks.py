@@ -22,7 +22,6 @@ def clean():
     "Clean working directory"
     run('rm -rf *.egg-info *.egg')
     run('rm -rf dist build')
-    run('find . -name "*.pyc" -delete')
 
 
 @task(clean)
@@ -36,4 +35,4 @@ def release():
     run('git push --tags')
 
     run('python setup.py sdist bdist_wheel')
-    run('twine upload dist/*')
+    run('twine upload -s dist/*')
