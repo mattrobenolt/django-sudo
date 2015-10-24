@@ -23,7 +23,7 @@ Installation
 Compatibility
 ~~~~~~~~~~~~~
 * Django 1.4-1.8
-* Python 2.6-3.4
+* Python 2.6-3.5
 * pypy
 
 Contents
