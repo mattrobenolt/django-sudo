@@ -95,6 +95,7 @@ def sudo(request, template_name='sudo/sudo.html', extra_context=None):
             return HttpResponseRedirect(redirect_to)
 
     context = {
+        'request': request,
         'form': form,
         REDIRECT_FIELD_NAME: redirect_to,
     }
