@@ -18,3 +18,6 @@ class EmailUser(AbstractBaseUser):
 
     def get_username(self):
         return self.email
+
+    class Meta:
+        app_label = 'sudo_tests'
