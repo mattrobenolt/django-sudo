@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.2.1
+~~~~~
+* Pass along ``request`` to template context
+  See `#8 <https://github.com/mattrobenolt/django-sudo/pull/8>`_.
+* Verified compatibility with Django 1.9
+
 1.2.0
 ~~~~~
 * Verified compatibility with python 3.5 and pypy3

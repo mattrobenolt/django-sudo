@@ -3,7 +3,7 @@
 django-sudo
 ~~~~~~~~~~~
 
-:copyright: (c) 2014 by Matt Robenolt.
+:copyright: (c) 2016 by Matt Robenolt.
 :license: BSD, see LICENSE for more details.
 """
 from setuptools import setup, find_packages
@@ -39,7 +39,7 @@ class PyTest(TestCommand):
 
 setup(
     name='django-sudo',
-    version='1.2.0',
+    version='1.2.1',
     author='Matt Robenolt',
     author_email='matt@ydekproductions.com',
     url='https://github.com/mattrobenolt/django-sudo',
