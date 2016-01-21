@@ -81,6 +81,7 @@ def sudo(request, template_name='sudo/sudo.html', extra_context=None):
     them back to ``next``.
     """
     redirect_to = request.GET.get(REDIRECT_FIELD_NAME, REDIRECT_URL)
+
     # Make sure we're not redirecting to other sites
     if not is_safe_url(url=redirect_to, host=request.get_host()):
         redirect_to = resolve_url(REDIRECT_URL)
@@ -88,10 +89,14 @@ def sudo(request, template_name='sudo/sudo.html', extra_context=None):
     if request.is_sudo():
         return HttpResponseRedirect(redirect_to)
 
+    if request.method == 'GET':
+        request.session['redirect_to'] = redirect_to
+
     form = SudoForm(request.user, request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
             grant_sudo_privileges(request)
+            redirect_to = request.session.pop('redirect_to', redirect_to)
             return HttpResponseRedirect(redirect_to)
 
     context = {
