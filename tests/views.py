@@ -78,6 +78,24 @@ class SudoViewTestCase(BaseTestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response['Location'], REDIRECT_URL)
 
+    def test_redirect_after_successful_get_and_post(self):
+        self.login()
+        self.request.is_sudo = lambda: False
+        self.request.method = 'GET'
+        self.request.GET = {REDIRECT_FIELD_NAME: '/foobar'}
+        sudo(self.request)
+
+        self.request, self.request.session = self.post('/foo'), self.request.session
+        self.login()
+        self.request.is_sudo = lambda: False
+        self.request.method = 'POST'
+        self.request.POST = {'password': 'foo'}
+        self.request.csrf_processing_done = True
+        response = sudo(self.request)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['Location'], '/foobar')
+        self.assertNotEqual(response['Location'], REDIRECT_URL)
+
     def test_render_form_with_bad_password(self):
         self.login()
         self.request.is_sudo = lambda: False
