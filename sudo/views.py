@@ -91,14 +91,14 @@ def sudo(request, template_name='sudo/sudo.html', extra_context=None):
         return HttpResponseRedirect(redirect_to)
 
     if request.method == 'GET':
-        request.session['REDIRECT_TO_FIELD_NAME'] = redirect_to
+        request.session[REDIRECT_TO_FIELD_NAME] = redirect_to
 
     form = SudoForm(request.user, request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
             grant_sudo_privileges(request)
             # Restore the redirect destination from the GET request
-            redirect_to = request.session.pop('REDIRECT_TO_FIELD_NAME', redirect_to)
+            redirect_to = request.session.pop(REDIRECT_TO_FIELD_NAME, redirect_to)
             # Double check we're not redirecting to other sites
             if not is_safe_url(url=redirect_to, host=request.get_host()):
                 redirect_to = resolve_url(REDIRECT_URL)
