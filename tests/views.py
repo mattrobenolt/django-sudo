@@ -2,7 +2,7 @@ from .base import BaseTestCase
 
 from django.template.response import TemplateResponse
 
-from sudo.settings import REDIRECT_FIELD_NAME, REDIRECT_URL
+from sudo.settings import REDIRECT_FIELD_NAME, REDIRECT_URL, REDIRECT_TO_FIELD_NAME
 from sudo.views import (
     sudo,
     redirect_to_sudo,
@@ -78,7 +78,7 @@ class SudoViewTestCase(BaseTestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response['Location'], REDIRECT_URL)
 
-    def test_redirect_after_successful_get_and_post(self):
+    def test_session_based_redirect(self):
         self.login()
         self.request.is_sudo = lambda: False
         self.request.method = 'GET'
@@ -95,6 +95,18 @@ class SudoViewTestCase(BaseTestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response['Location'], '/foobar')
         self.assertNotEqual(response['Location'], REDIRECT_URL)
+        self.assertFalse('redirect_to' in self.request.session)
+
+    def test_session_based_redirect_bad_url(self):
+        self.login()
+        self.request.is_sudo = lambda: False
+        self.request.method = 'POST'
+        self.request.POST = {'password': 'foo'}
+        self.request.session[REDIRECT_TO_FIELD_NAME] = 'http://mattrobenolt.com/lol'
+        self.request.csrf_processing_done = True
+        response = sudo(self.request)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['Location'], REDIRECT_URL)
         self.assertFalse('redirect_to' in self.request.session)
 
     def test_render_form_with_bad_password(self):
