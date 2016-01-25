@@ -41,3 +41,7 @@ COOKIE_SALT = getattr(settings, 'SUDO_COOKIE_SALT', '')
 # The form to use within the ``sudo`` view. Override if you want to add
 # additional fields or different behavior.
 SUDO_FORM = getattr(settings, 'SUDO_FORM', 'sudo.forms.SudoForm')
+
+# The name of the session attribute used to preserve the redirect destination
+# between the original page request and successful sudo login.
+REDIRECT_TO_FIELD_NAME = getattr(settings, 'SUDO_REDIRECT_TO_FIELD_NAME', 'sudo_redirect_to')

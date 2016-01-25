@@ -46,6 +46,10 @@ By default, all of the settings are optional and define sane and secure defaults
     The form to use within the ``sudo`` view. Override if you want to change the behavior or add
     additional fields. *Default: sudo.forms.SudoForm*
 
+``SUDO_REDIRECT_TO_FIELD_NAME``
+    The name of the session attribute used to preserve the redirect destination
+    between the original page request and successful sudo login. *Default: sudo_redirect_to*
+
 Set up URLs
 ~~~~~~~~~~~
 

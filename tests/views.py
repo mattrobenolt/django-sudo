@@ -95,6 +95,7 @@ class SudoViewTestCase(BaseTestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response['Location'], '/foobar')
         self.assertNotEqual(response['Location'], REDIRECT_URL)
+        self.assertFalse('redirect_to' in self.request.session)
 
     def test_render_form_with_bad_password(self):
         self.login()
