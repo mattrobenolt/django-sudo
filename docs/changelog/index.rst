@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.3.0
+~~~~~
+* Store ``redirect_to`` value in session.
+  See `#10 <https://github.com/mattrobenolt/django-sudo/pull/10>`_.
+
 1.2.1
 ~~~~~
 * Pass along ``request`` to template context
