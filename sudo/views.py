@@ -13,7 +13,7 @@ except ImportError:  # pragma: no cover
 
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, QueryDict
+from django.http import HttpResponseRedirect, QueryDict, HttpResponse
 from django.template.response import TemplateResponse
 try:
     import importlib
@@ -25,7 +25,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 
 from sudo.settings import (REDIRECT_FIELD_NAME, REDIRECT_URL, SUDO_FORM,
-                           REDIRECT_TO_FIELD_NAME)
+                           REDIRECT_TO_FIELD_NAME, SUDO_DISABLE)
 from sudo.utils import grant_sudo_privileges
 
 FormPath, FormClass = '.'.join(SUDO_FORM.split('.')[:-1]), SUDO_FORM.split('.')[-1]
@@ -82,6 +82,9 @@ def sudo(request, template_name='sudo/sudo.html', extra_context=None):
     them back to ``next``.
     """
     redirect_to = request.GET.get(REDIRECT_FIELD_NAME, REDIRECT_URL)
+
+    if SUDO_DISABLE:
+        return HttpResponse(redirect_to)
 
     # Make sure we're not redirecting to other sites
     if not is_safe_url(url=redirect_to, host=request.get_host()):

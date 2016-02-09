@@ -48,6 +48,9 @@ def has_sudo_privileges(request):
     """
     Check if a request is allowed to perform sudo actions
     """
+    from sudo.settings import SUDO_DISABLE
+    if SUDO_DISABLE:
+        return True
     if getattr(request, '_sudo', None) is None:
         try:
             request._sudo = (

@@ -45,3 +45,6 @@ SUDO_FORM = getattr(settings, 'SUDO_FORM', 'sudo.forms.SudoForm')
 # The name of the session attribute used to preserve the redirect destination
 # between the original page request and successful sudo login.
 REDIRECT_TO_FIELD_NAME = getattr(settings, 'SUDO_REDIRECT_TO_FIELD_NAME', 'sudo_redirect_to')
+
+# Testing setting, disables sudo to facilitate view testing using django test client
+SUDO_DISABLE = getattr(settings, 'SUDO_DISABLE', False)
