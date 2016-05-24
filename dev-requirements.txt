@@ -1,7 +1,6 @@
 -e .
 flake8
 invoke>=0.11.1,<0.12
-pkginfo<1.3
 pytest
 pytest-cov
 pytest-django
