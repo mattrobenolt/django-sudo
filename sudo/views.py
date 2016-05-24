@@ -23,10 +23,13 @@ from django.utils.http import is_safe_url
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
+from django.views.generic import View
+from django.utils.decorators import method_decorator
 
 from sudo.settings import (REDIRECT_FIELD_NAME, REDIRECT_URL, SUDO_FORM,
-                           REDIRECT_TO_FIELD_NAME)
+                           REDIRECT_TO_FIELD_NAME, SUDO_VIEW_NAME)
 from sudo.utils import grant_sudo_privileges
+from sudo.forms import SudoForm as SudoBaseForm
 
 FormPath, FormClass = '.'.join(SUDO_FORM.split('.')[:-1]), SUDO_FORM.split('.')[-1]
 SudoForm = getattr(importlib.import_module(FormPath), FormClass)
@@ -71,54 +74,75 @@ except ImportError:  # pragma: no cover
         return to
 
 
-@sensitive_post_parameters()
-@never_cache
-@csrf_protect
-@login_required
-def sudo(request, template_name='sudo/sudo.html', extra_context=None):
+class SudoView(View):
     """
     The default view for the sudo mode page. The role of this page is to
     prompt the user for their password again, and if successful, redirect
     them back to ``next``.
     """
-    redirect_to = request.GET.get(REDIRECT_FIELD_NAME, REDIRECT_URL)
+    form_class = SudoBaseForm
+    template_name = 'sudo/sudo.html'
 
-    # Make sure we're not redirecting to other sites
-    if not is_safe_url(url=redirect_to, host=request.get_host()):
-        redirect_to = resolve_url(REDIRECT_URL)
+    def __init__(self, template_name=None, form_class=None, extra_context=None):
+        View.__init__(self)
+        if template_name is not None:
+            self.template_name = template_name
+        if form_class is not None:
+            self.form_class = form_class
+        self.extra_context = extra_context
 
-    if request.is_sudo():
+    def handle_sudo(self, request, redirect_to, context):
+        return request.method == 'POST' and context['form'].is_valid()
+
+    def grant_sudo_privileges(self, request, redirect_to):
+        grant_sudo_privileges(request)
+        # Restore the redirect destination from the GET request
+        redirect_to = request.session.pop(REDIRECT_TO_FIELD_NAME,
+                                          redirect_to)
+        # Double check we're not redirecting to other sites
+        if not is_safe_url(url=redirect_to, host=request.get_host()):
+            redirect_to = resolve_url(REDIRECT_URL)
         return HttpResponseRedirect(redirect_to)
 
-    if request.method == 'GET':
-        request.session[REDIRECT_TO_FIELD_NAME] = redirect_to
+    @method_decorator(sensitive_post_parameters())
+    @method_decorator(never_cache)
+    @method_decorator(csrf_protect)
+    @method_decorator(login_required)
+    def dispatch(self, request):
+        redirect_to = request.GET.get(REDIRECT_FIELD_NAME, REDIRECT_URL)
 
-    form = SudoForm(request.user, request.POST or None)
-    if request.method == 'POST':
-        if form.is_valid():
-            grant_sudo_privileges(request)
-            # Restore the redirect destination from the GET request
-            redirect_to = request.session.pop(REDIRECT_TO_FIELD_NAME, redirect_to)
-            # Double check we're not redirecting to other sites
-            if not is_safe_url(url=redirect_to, host=request.get_host()):
-                redirect_to = resolve_url(REDIRECT_URL)
+        # Make sure we're not redirecting to other sites
+        if not is_safe_url(url=redirect_to, host=request.get_host()):
+            redirect_to = resolve_url(REDIRECT_URL)
+
+        if request.is_sudo():
             return HttpResponseRedirect(redirect_to)
 
-    context = {
-        'request': request,
-        'form': form,
-        REDIRECT_FIELD_NAME: redirect_to,
-    }
-    if extra_context is not None:
-        context.update(extra_context)
-    return TemplateResponse(request, template_name, context)
+        if request.method == 'GET':
+            request.session[REDIRECT_TO_FIELD_NAME] = redirect_to
+
+        context = {
+            'form': self.form_class(request.user, request.POST or None),
+            'request': request,
+            REDIRECT_FIELD_NAME: redirect_to,
+        }
+        if self.handle_sudo(request, redirect_to, context):
+            return self.grant_sudo_privileges(request, redirect_to)
+        if self.extra_context is not None:
+            context.update(self.extra_context)
+        return TemplateResponse(request, self.template_name, context)
+
+
+def sudo(request, **kwargs):
+    kwargs.setdefault('form_class', SudoForm)
+    return SudoView(**kwargs).dispatch(request)
 
 
 def redirect_to_sudo(next_url):
     """
     Redirects the user to the login page, passing the given 'next' page
     """
-    sudo_url_parts = list(urlparse(reverse('sudo.views.sudo')))
+    sudo_url_parts = list(urlparse(reverse(SUDO_VIEW_NAME)))
 
     querystring = QueryDict(sudo_url_parts[4], mutable=True)
     querystring[REDIRECT_FIELD_NAME] = next_url
