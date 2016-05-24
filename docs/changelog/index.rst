@@ -1,13 +1,18 @@
 Changelog
 =========
 
-2.0.0
+2.0.1
 ~~~~~
-* Added ``sudo.views.SudoView`` class based view. This is now more extensable and
+* Added ``sudo.views.SudoView`` class based view. This is now more extensible and
   should be preferred over the older ``sudo.views.sudo`` view function.
 * Removed ``SUDO_FORM`` setting. It's now suggested to subclass ``sudo.views.SudoView``
   and override ``form_class``.
 * Added ``SUDO_URL`` setting to set the url for the sudo page.
+
+
+2.0.0
+~~~~~
+* Bad release. :( Don't install.
 
 1.3.0
 ~~~~~

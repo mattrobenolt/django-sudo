@@ -9,7 +9,7 @@ django-sudo
 from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
 
-install_requires = ['Django']
+install_requires = []
 
 tests_require = [
     'pytest',
@@ -39,7 +39,7 @@ class PyTest(TestCommand):
 
 setup(
     name='django-sudo',
-    version='2.0.0',
+    version='2.0.1',
     author='Matt Robenolt',
     author_email='matt@ydekproductions.com',
     url='https://github.com/mattrobenolt/django-sudo',
