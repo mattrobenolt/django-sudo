@@ -46,5 +46,5 @@ SUDO_FORM = getattr(settings, 'SUDO_FORM', 'sudo.forms.SudoForm')
 # between the original page request and successful sudo login.
 REDIRECT_TO_FIELD_NAME = getattr(settings, 'SUDO_REDIRECT_TO_FIELD_NAME', 'sudo_redirect_to')
 
-# The name of the view function for reversing
-SUDO_VIEW_NAME = getattr(settings, 'SUDO_VIEW_NAME', 'sudo.views.sudo')
+# The url for the sudo page itself. May be a url or a view name
+URL = getattr(settings, 'SUDO_URL', 'sudo.views.sudo')

@@ -12,7 +12,6 @@ except ImportError:  # pragma: no cover
     from urlparse import urlparse, urlunparse  # noqa
 
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, QueryDict
 from django.template.response import TemplateResponse
 try:
@@ -27,7 +26,7 @@ from django.views.generic import View
 from django.utils.decorators import method_decorator
 
 from sudo.settings import (REDIRECT_FIELD_NAME, REDIRECT_URL, SUDO_FORM,
-                           REDIRECT_TO_FIELD_NAME, SUDO_VIEW_NAME)
+                           REDIRECT_TO_FIELD_NAME, URL)
 from sudo.utils import grant_sudo_privileges
 from sudo.forms import SudoForm as SudoBaseForm
 
@@ -138,11 +137,14 @@ def sudo(request, **kwargs):
     return SudoView(**kwargs).dispatch(request)
 
 
-def redirect_to_sudo(next_url):
+def redirect_to_sudo(next_url, sudo_url=None):
     """
     Redirects the user to the login page, passing the given 'next' page
     """
-    sudo_url_parts = list(urlparse(reverse(SUDO_VIEW_NAME)))
+    if sudo_url is None:
+        sudo_url = URL
+
+    sudo_url_parts = list(urlparse(resolve_url(sudo_url)))
 
     querystring = QueryDict(sudo_url_parts[4], mutable=True)
     querystring[REDIRECT_FIELD_NAME] = next_url
