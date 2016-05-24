@@ -78,14 +78,7 @@ class SudoView(View):
     """
     form_class = SudoForm
     template_name = 'sudo/sudo.html'
-
-    def __init__(self, template_name=None, form_class=None, extra_context=None):
-        View.__init__(self)
-        if template_name is not None:
-            self.template_name = template_name
-        if form_class is not None:
-            self.form_class = form_class
-        self.extra_context = extra_context
+    extra_context = None
 
     def handle_sudo(self, request, redirect_to, context):
         return request.method == 'POST' and context['form'].is_valid()
