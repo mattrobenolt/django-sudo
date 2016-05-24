@@ -39,7 +39,7 @@ class PyTest(TestCommand):
 
 setup(
     name='django-sudo',
-    version='1.3.0',
+    version='2.0.0',
     author='Matt Robenolt',
     author_email='matt@ydekproductions.com',
     url='https://github.com/mattrobenolt/django-sudo',
