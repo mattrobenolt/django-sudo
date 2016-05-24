@@ -6,6 +6,9 @@ Settings
 
 By default, all of the settings are optional and define sane and secure defaults.
 
+``SUDO_URL``
+    The url or view name for the sudo view. *Default: sudo.views.sudo*
+
 ``SUDO_REDIRECT_URL``
     Default url to be redirected to after elevating permissions. *Default: /*
 
@@ -41,10 +44,6 @@ By default, all of the settings are optional and define sane and secure defaults
 
 ``SUDO_COOKIE_SALT``
     An extra salt to be added into the cookie signature. *Default: ''*
-
-``SUDO_FORM``
-    The form to use within the ``sudo`` view. Override if you want to change the behavior or add
-    additional fields. *Default: sudo.forms.SudoForm*
 
 ``SUDO_REDIRECT_TO_FIELD_NAME``
     The name of the session attribute used to preserve the redirect destination

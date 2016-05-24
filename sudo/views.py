@@ -12,13 +12,8 @@ except ImportError:  # pragma: no cover
     from urlparse import urlparse, urlunparse  # noqa
 
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, QueryDict
 from django.template.response import TemplateResponse
-try:
-    import importlib
-except ImportError:  # pragma: nocover
-    from django.utils import importlib
 from django.utils.http import is_safe_url
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
@@ -26,13 +21,10 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.generic import View
 from django.utils.decorators import method_decorator
 
-from sudo.settings import (REDIRECT_FIELD_NAME, REDIRECT_URL, SUDO_FORM,
-                           REDIRECT_TO_FIELD_NAME, SUDO_VIEW_NAME)
+from sudo.settings import (REDIRECT_FIELD_NAME, REDIRECT_URL,
+                           REDIRECT_TO_FIELD_NAME, URL)
 from sudo.utils import grant_sudo_privileges
-from sudo.forms import SudoForm as SudoBaseForm
-
-FormPath, FormClass = '.'.join(SUDO_FORM.split('.')[:-1]), SUDO_FORM.split('.')[-1]
-SudoForm = getattr(importlib.import_module(FormPath), FormClass)
+from sudo.forms import SudoForm
 
 try:
     from django.shortcuts import resolve_url
@@ -80,16 +72,9 @@ class SudoView(View):
     prompt the user for their password again, and if successful, redirect
     them back to ``next``.
     """
-    form_class = SudoBaseForm
+    form_class = SudoForm
     template_name = 'sudo/sudo.html'
-
-    def __init__(self, template_name=None, form_class=None, extra_context=None):
-        View.__init__(self)
-        if template_name is not None:
-            self.template_name = template_name
-        if form_class is not None:
-            self.form_class = form_class
-        self.extra_context = extra_context
+    extra_context = None
 
     def handle_sudo(self, request, redirect_to, context):
         return request.method == 'POST' and context['form'].is_valid()
@@ -134,15 +119,17 @@ class SudoView(View):
 
 
 def sudo(request, **kwargs):
-    kwargs.setdefault('form_class', SudoForm)
     return SudoView(**kwargs).dispatch(request)
 
 
-def redirect_to_sudo(next_url):
+def redirect_to_sudo(next_url, sudo_url=None):
     """
     Redirects the user to the login page, passing the given 'next' page
     """
-    sudo_url_parts = list(urlparse(reverse(SUDO_VIEW_NAME)))
+    if sudo_url is None:
+        sudo_url = URL
+
+    sudo_url_parts = list(urlparse(resolve_url(sudo_url)))
 
     querystring = QueryDict(sudo_url_parts[4], mutable=True)
     querystring[REDIRECT_FIELD_NAME] = next_url

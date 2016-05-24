@@ -131,3 +131,8 @@ class RedirectToSudoTestCase(BaseTestCase):
         response = redirect_to_sudo('/foo?foo=bar')
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response['Location'], '/sudo/?next=/foo%3Ffoo%3Dbar')
+
+    def test_redirect_to_sudo_custom_url(self):
+        response = redirect_to_sudo('/foo', '/lolsudo/')
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['Location'], '/lolsudo/?next=/foo')
