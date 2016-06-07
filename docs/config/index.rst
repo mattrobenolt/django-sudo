@@ -35,7 +35,7 @@ By default, all of the settings are optional and define sane and secure defaults
     Restrict the sudo cookie to a specific path. *Default: /*
 
 ``SUDO_COOKIE_SECURE``
-    Only transmit the sudo cookie over http if True. *Default: matches current protocol*
+    Only transmit the sudo cookie over https if True. *Default: matches current protocol*
 
     .. note::
         By default, we will match the protocol that made the request. So if your sudo page is over
