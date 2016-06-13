@@ -37,6 +37,6 @@ Compatibility
 
 Resources
 ~~~~~~~~~
-* `Documentation <https://django-sudo.readthedocs.org/>`_
-* `Security <https://django-sudo.readthedocs.org/en/latest/security/index.html>`_
-* `Changelog <https://django-sudo.readthedocs.org/en/latest/changelog/index.html>`_
+* `Documentation <https://django-sudo.readthedocs.io/>`_
+* `Security <https://django-sudo.readthedocs.io/en/latest/security/index.html>`_
+* `Changelog <https://django-sudo.readthedocs.io/en/latest/changelog/index.html>`_
