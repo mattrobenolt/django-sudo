@@ -32,7 +32,7 @@ Once we have ``django-sudo`` :doc:`installed </getting-started/index>` and
     ``@sudo_required`` decorator.
 
     This works well with the ``LoginRequiredMixin`` from
-    `django-braces <https://django-braces.rtfd.org/>`_:
+    `django-braces <https://django-braces.readthedocs.io/>`_:
 
     .. code-block:: python
 
