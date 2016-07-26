@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.1.0
+~~~~~
+* Vendored a more secure ``is_safe_url`` implementation from latest Django, instead of relying on a potentially insecure bundled version.
+  See `#17 <https://github.com/mattrobenolt/django-sudo/pull/17>`_.
+
 2.0.1
 ~~~~~
 * Added ``sudo.views.SudoView`` class based view. This is now more extensible and
