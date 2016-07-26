@@ -3,6 +3,7 @@ from sudo.utils import (
     grant_sudo_privileges,
     revoke_sudo_privileges,
     has_sudo_privileges,
+    is_safe_url,
 )
 
 from django.core.signing import BadSignature
@@ -102,3 +103,29 @@ class HasSudoPrivilegesTestCase(BaseTestCase):
     def test_missing_keys(self):
         self.login()
         self.assertFalse(has_sudo_privileges(self.request))
+
+
+class IsSafeUrlTestCase(BaseTestCase):
+    def test_success(self):
+        urls = (
+            ('/', None),
+            ('/foo/', None),
+            ('/', 'example.com'),
+            ('http://example.com/foo', 'example.com'),
+        )
+        for url in urls:
+            self.assertTrue(is_safe_url(*url))
+
+    def test_failure(self):
+        urls = (
+            (None, None),
+            ('', ''),
+            ('http://mattrobenolt.com/', 'example.com'),
+            ('///example.com/', None),
+            ('ftp://example.com', 'example.com'),
+            ('http://example.com\@mattrobenolt.com', 'example.com'),
+            ('http:///example.com', 'example.com'),
+            ('\x08//example.com', 'example.com'),
+        )
+        for url in urls:
+            self.assertFalse(is_safe_url(*url))
