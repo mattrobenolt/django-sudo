@@ -59,6 +59,11 @@ class SudoViewTestCase(BaseTestCase):
         self.request.GET = {REDIRECT_FIELD_NAME: 'http://mattrobenolt.com/lol'}
         response = sudo(self.request)
         self.assertEqual(response['Location'], REDIRECT_URL)
+        self.request.GET = {
+            REDIRECT_FIELD_NAME: 'http://%s\@mattrobenolt.com' % self.request.get_host(),
+        }
+        response = sudo(self.request)
+        self.assertEqual(response['Location'], REDIRECT_URL)
 
     def test_redirect_if_already_sudo_with_next(self):
         self.login()
@@ -108,6 +113,11 @@ class SudoViewTestCase(BaseTestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response['Location'], REDIRECT_URL)
         self.assertFalse('redirect_to' in self.request.session)
+        self.request.session[REDIRECT_TO_FIELD_NAME] = (
+            'http://%s\@mattrobenolt.com' % self.request.get_host()
+        )
+        response = sudo(self.request)
+        self.assertEqual(response['Location'], REDIRECT_URL)
 
     def test_render_form_with_bad_password(self):
         self.login()

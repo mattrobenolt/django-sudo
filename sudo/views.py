@@ -14,7 +14,6 @@ except ImportError:  # pragma: no cover
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, QueryDict
 from django.template.response import TemplateResponse
-from django.utils.http import is_safe_url
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
@@ -23,7 +22,7 @@ from django.utils.decorators import method_decorator
 
 from sudo.settings import (REDIRECT_FIELD_NAME, REDIRECT_URL,
                            REDIRECT_TO_FIELD_NAME, URL)
-from sudo.utils import grant_sudo_privileges
+from sudo.utils import grant_sudo_privileges, is_safe_url
 from sudo.forms import SudoForm
 
 try:
