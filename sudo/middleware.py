@@ -11,8 +11,13 @@ from sudo.settings import (
 )
 from sudo.utils import has_sudo_privileges
 
+try:
+    from django.utils.deprecation import MiddlewareMixin
+except ImportError:
+    MiddlewareMixin = object
 
-class SudoMiddleware(object):
+
+class SudoMiddleware(MiddlewareMixin):
     """
     Middleware that contributes ``request.is_sudo()`` and sets the required
     cookie for sudo mode to work correctly.
