@@ -21,10 +21,7 @@ class SudoForm(forms.Form):
         super(SudoForm, self).__init__(*args, **kwargs)
 
     def clean_password(self):
-        try:
-            username = self.user.get_username()   # Django 1.5 and above
-        except AttributeError:                    # pragma: nocover
-            username = self.user.username         # Django 1.4
+        username = self.user.get_username()
         if auth.authenticate(username=username, password=self.data['password']):
             return self.data['password']
         raise forms.ValidationError(_('Incorrect password'))

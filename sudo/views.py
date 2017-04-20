@@ -12,7 +12,9 @@ except ImportError:  # pragma: no cover
     from urlparse import urlparse, urlunparse  # noqa
 
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponseRedirect, QueryDict
+from django.shortcuts import resolve_url
 from django.template.response import TemplateResponse
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
@@ -26,43 +28,10 @@ from sudo.utils import grant_sudo_privileges, is_safe_url
 from sudo.forms import SudoForm
 
 try:
-    from django.shortcuts import resolve_url
-except ImportError:  # pragma: no cover
-    # Django <1.5 doesn't have `resolve_url`
-    from django.core import urlresolvers
-
-    # resolve_url yanked from Django 1.5.5
-    def resolve_url(to, *args, **kwargs):
-        """
-        Return a URL appropriate for the arguments passed.
-
-        The arguments could be:
-
-            * A model: the model's `get_absolute_url()` function will be called.
-
-            * A view name, possibly with arguments: `urlresolvers.reverse()` will
-              be used to reverse-resolve the name.
-
-            * A URL, which will be returned as-is.
-
-        """
-        # If it's a model, use get_absolute_url()
-        if hasattr(to, 'get_absolute_url'):
-            return to.get_absolute_url()
-
-        # Next try a reverse URL resolution.
-        try:
-            return urlresolvers.reverse(to, args=args, kwargs=kwargs)
-        except urlresolvers.NoReverseMatch:
-            # If this is a callable, re-raise.
-            if callable(to):
-                raise
-            # If this doesn't "feel" like a URL, re-raise.
-            if '/' not in to and '.' not in to:
-                raise
-
-        # Finally, fall back and assume it's a URL
-        return to
+    from django.utils.module_loading import import_string
+except ImportError:
+    # Django 1.6
+    from django.utils.module_loading import import_by_path as import_string
 
 
 class SudoView(View):
@@ -127,6 +96,13 @@ def redirect_to_sudo(next_url, sudo_url=None):
     """
     if sudo_url is None:
         sudo_url = URL
+
+    try:
+        # django 1.10 and greater can't resolve the string 'sudo.views.sudo' to a URL
+        # https://docs.djangoproject.com/en/1.10/releases/1.10/#removed-features-1-10
+        sudo_url = import_string(sudo_url)
+    except (ImportError, ImproperlyConfigured):
+        pass  # wasn't a dotted path
 
     sudo_url_parts = list(urlparse(resolve_url(sudo_url)))
 
