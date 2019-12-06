@@ -14,6 +14,7 @@ except ImportError:  # pragma: no cover
     from urlparse import urlparse, urlunparse  # noqa
 
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponseRedirect, QueryDict
 from django.template.response import TemplateResponse
 from django.views.decorators.debug import sensitive_post_parameters
@@ -21,6 +22,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import View
 from django.utils.decorators import method_decorator
+from django.utils.module_loading import import_string
 
 from sudo.settings import (REDIRECT_FIELD_NAME, REDIRECT_URL,
                            REDIRECT_TO_FIELD_NAME, URL)
@@ -129,6 +131,13 @@ def redirect_to_sudo(next_url, sudo_url=None):
     """
     if sudo_url is None:
         sudo_url = URL
+
+    try:
+        # django 1.10 and greater can't resolve the string 'sudo.views.sudo' to a URL
+        # https://docs.djangoproject.com/en/1.10/releases/1.10/#removed-features-1-10
+        sudo_url = import_string(sudo_url)
+    except (ImportError, ImproperlyConfigured):
+        pass  # wasn't a dotted path
 
     sudo_url_parts = list(urlparse(resolve_url(sudo_url)))
 
