@@ -5,6 +5,8 @@ sudo.settings
 :copyright: (c) 2014 by Matt Robenolt.
 :license: BSD, see LICENSE for more details.
 """
+from __future__ import absolute_import
+
 from django.conf import settings
 
 # Default url to be redirected to after elevating permissions

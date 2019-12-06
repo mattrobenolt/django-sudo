@@ -10,6 +10,7 @@ class FooView(SudoMixin, generic.View):
     def get(self, request):
         return HttpResponse()
 
+
 foo = FooView.as_view()
 
 
