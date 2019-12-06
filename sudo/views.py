@@ -5,6 +5,8 @@ sudo.views
 :copyright: (c) 2014 by Matt Robenolt.
 :license: BSD, see LICENSE for more details.
 """
+from __future__ import absolute_import
+
 try:
     from urllib.parse import urlparse, urlunparse
 except ImportError:  # pragma: no cover

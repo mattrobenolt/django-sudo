@@ -5,6 +5,8 @@ sudo.decorators
 :copyright: (c) 2014 by Matt Robenolt.
 :license: BSD, see LICENSE for more details.
 """
+from __future__ import absolute_import
+
 from functools import wraps
 
 from sudo.views import redirect_to_sudo

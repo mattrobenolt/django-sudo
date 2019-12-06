@@ -5,6 +5,8 @@ sudo.signals
 :copyright: (c) 2014 by Matt Robenolt.
 :license: BSD, see LICENSE for more details.
 """
+from __future__ import absolute_import
+
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.dispatch import receiver
 

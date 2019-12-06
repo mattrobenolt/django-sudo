@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 from .base import BaseTestCase
 from django.http import HttpResponse
 from django.views import generic

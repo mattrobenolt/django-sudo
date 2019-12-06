@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 from .base import BaseTestCase
 from sudo.signals import grant, revoke
 from sudo.utils import has_sudo_privileges, grant_sudo_privileges

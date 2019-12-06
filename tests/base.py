@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 try:
     from django.utils import unittest
 except ImportError:

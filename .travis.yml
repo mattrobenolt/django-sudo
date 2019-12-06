@@ -11,10 +11,10 @@ after_success:
 matrix:
   include:
     - name: 'Linter (Python 2.7)'
-      script: flake8
+      script: flake8 sudo tests
     - python: "3.7"
       name: 'Linter (Python 3.7)'
-      script: flake8
+      script: flake8 sudo tests
     - python: "2.7"
       name: "Python 2.7, Django 1.9"
       env: DJANGO="Django>=1.9,<1.10"

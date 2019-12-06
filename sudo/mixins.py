@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 from sudo.decorators import sudo_required
 
 
