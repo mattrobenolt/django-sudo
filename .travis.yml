@@ -3,7 +3,7 @@ language: python
 install:
   - pip install $DJANGO
   - pip install coveralls
-  - pip install -r dev-requirements.txt
+  - pip install --upgrade -r dev-requirements.txt
 script:
   - inv test
 after_success:
