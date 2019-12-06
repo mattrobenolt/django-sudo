@@ -1,6 +1,5 @@
 -e .
 sentry-flake8>=0.2.0,<0.3.0
-invoke>=0.11.1,<0.12
 pytest==4.6.5
 pytest-cov==2.5.1
 pytest-django==3.5.1

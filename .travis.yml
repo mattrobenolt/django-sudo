@@ -5,11 +5,16 @@ install:
   - pip install coveralls
   - pip install --upgrade -r dev-requirements.txt
 script:
-  - inv test
+  - py.test --cov sudo --cov-report term-missing
 after_success:
   - coveralls
 matrix:
   include:
+    - name: 'Linter (Python 2.7)'
+      script: flake8
+    - python: "3.7"
+      name: 'Linter (Python 3.7)'
+      script: flake8
     - python: "2.7"
       name: "Python 2.7, Django 1.9"
       env: DJANGO="Django>=1.9,<1.10"
