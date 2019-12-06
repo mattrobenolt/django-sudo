@@ -12,9 +12,13 @@ matrix:
   include:
     - python: "2.7"
     - name: 'Linter (Python 2.7)'
+      install:
+        - pip install --upgrade -r dev-requirements.txt
       script: flake8 sudo tests
     - python: "3.7"
       name: 'Linter (Python 3.7)'
+      install:
+        - pip install --upgrade -r dev-requirements.txt
       script: flake8 sudo tests
     - python: "2.7"
       name: "Python 2.7, Django 1.9"
