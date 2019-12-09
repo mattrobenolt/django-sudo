@@ -1,5 +1,5 @@
 -e .
-sentry-flake8>=0.2.0,<0.3.0
+flake8>=3.7.0,<3.8.0
 pytest==4.6.5
 pytest-cov==2.5.1
 pytest-django==3.5.1

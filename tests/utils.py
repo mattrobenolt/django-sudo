@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-
 from sudo.settings import COOKIE_NAME, COOKIE_AGE
 from sudo.utils import (
     grant_sudo_privileges,

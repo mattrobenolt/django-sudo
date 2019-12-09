@@ -5,8 +5,6 @@ sudo.forms
 :copyright: (c) 2014 by Matt Robenolt.
 :license: BSD, see LICENSE for more details.
 """
-from __future__ import absolute_import
-
 from django import forms
 from django.contrib import auth
 from django.utils.translation import ugettext_lazy as _
