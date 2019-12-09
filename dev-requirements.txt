@@ -6,3 +6,6 @@ pytest-cov==2.5.1
 pytest-django==3.5.1
 sphinx
 sphinx_rtd_theme
+tox
+twine
+wheel
