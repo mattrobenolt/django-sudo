@@ -5,7 +5,7 @@ install:
   - pip install coveralls
   - pip install --upgrade -r dev-requirements.txt
 script:
-  - py.test --cov sudo --cov-report term-missing
+  - inv test
 after_success:
   - coveralls
 matrix:
