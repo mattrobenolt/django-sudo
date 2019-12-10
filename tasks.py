@@ -35,4 +35,5 @@ def release():
     run('git push --tags')
 
     run('python setup.py sdist bdist_wheel')
+    run('twine check dist/*')
     run('twine upload -s dist/*')

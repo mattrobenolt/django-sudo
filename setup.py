@@ -10,7 +10,7 @@ from setuptools import setup, find_packages
 
 install_requires = []
 
-with open('README.rst') as f:
+with open('README.md') as f:
     long_description = f.read()
 
 
@@ -23,6 +23,7 @@ setup(
     description='Extra security for your sensitive pages',
     license='BSD',
     long_description=long_description,
+    long_description_content_type='text/markdown',
     packages=find_packages(exclude=['tests']),
     install_requires=install_requires,
     zip_safe=True,
