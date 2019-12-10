@@ -16,7 +16,7 @@ with open('README.rst') as f:
 
 setup(
     name='django-sudo',
-    version='2.1.0',
+    version='3.0.0',
     author='Matt Robenolt',
     author_email='matt@ydekproductions.com',
     url='https://github.com/mattrobenolt/django-sudo',

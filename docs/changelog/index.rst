@@ -1,6 +1,12 @@
 Changelog
 =========
 
+3.0.0
+~~~~~
+* Added support for Django 1.10
+* Dropped support for Django < 1.9
+* Dropped support for Python 2.6, 3.3, 3.4, and 3.5
+
 2.1.0
 ~~~~~
 * Vendored a more secure ``is_safe_url`` implementation from latest Django, instead of relying on a potentially insecure bundled version.
