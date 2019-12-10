@@ -1,7 +1,4 @@
-try:
-    from django.utils import unittest
-except ImportError:
-    import unittest
+import unittest
 
 from django.test import RequestFactory
 from django.contrib.auth.models import User, AnonymousUser

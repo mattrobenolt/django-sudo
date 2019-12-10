@@ -16,7 +16,7 @@ class GrantSudoPrivilegesTestCase(BaseTestCase):
         token = request.session[COOKIE_NAME]
 
         self.assertRegexpMatches(
-            token, '^\w{12}$'
+            token, r'^\w{12}$'
         )
         self.assertTrue(request._sudo)
         self.assertEqual(request._sudo_token, token)
@@ -123,7 +123,7 @@ class IsSafeUrlTestCase(BaseTestCase):
             ('http://mattrobenolt.com/', 'example.com'),
             ('///example.com/', None),
             ('ftp://example.com', 'example.com'),
-            ('http://example.com\@mattrobenolt.com', 'example.com'),
+            ('http://example.com\@mattrobenolt.com', 'example.com'),  # noqa: W605
             ('http:///example.com', 'example.com'),
             ('\x08//example.com', 'example.com'),
         )

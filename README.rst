@@ -31,9 +31,8 @@ Installation
 
 Compatibility
 ~~~~~~~~~~~~~
-* Django 1.4-1.9
-* Python 2.6-3.5
-* pypy
+* Django 1.9-1.10
+* Python 2.7, 3.6-3.7
 
 Resources
 ~~~~~~~~~

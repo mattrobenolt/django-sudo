@@ -1,9 +1,9 @@
 -e .
-flake8<3.0
+flake8>=3.7.0,<3.8.0
 invoke>=0.11.1,<0.12
-pytest
-pytest-cov
-pytest-django
+pytest==4.6.5
+pytest-cov==2.5.1
+pytest-django==3.5.1
 sphinx
 sphinx_rtd_theme
 tox
