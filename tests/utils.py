@@ -122,6 +122,7 @@ class IsSafeUrlTestCase(BaseTestCase):
             ('', ''),
             ('http://mattrobenolt.com/', 'example.com'),
             ('///example.com/', None),
+            ('https:1029415385', 'example.com'),
             ('ftp://example.com', 'example.com'),
             ('http://example.com\@mattrobenolt.com', 'example.com'),  # noqa: W605
             ('http:///example.com', 'example.com'),

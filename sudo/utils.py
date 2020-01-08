@@ -6,6 +6,7 @@ sudo.utils
 :license: BSD, see LICENSE for more details.
 """
 import unicodedata
+import re
 
 from django.core.signing import BadSignature
 from django.utils import six
@@ -14,6 +15,8 @@ from django.utils.encoding import force_text
 from django.utils.six.moves.urllib.parse import urlparse
 
 from sudo.settings import COOKIE_NAME, COOKIE_AGE, COOKIE_SALT
+
+TIMESTAMP_IP_RE = re.compile(r'^https?\:\d+$')
 
 
 def grant_sudo_privileges(request, max_age=COOKIE_AGE):
@@ -93,6 +96,11 @@ def _is_safe_url(url, host):
     if url.startswith('///'):
         return False
     url_info = urlparse(url)
+
+    # Forbid URLs like https:1029415385 as they look like relative paths, but
+    # browsers interpret them as https://<ip-address>
+    if not url_info.netloc and TIMESTAMP_IP_RE.match(url_info.path):
+        return False
     # Forbid URLs like http:///example.com - with a scheme, but without a hostname.
     # In that URL, example.com is not the hostname but, a path component. However,
     # Chrome will still consider example.com to be the hostname, so we must not
