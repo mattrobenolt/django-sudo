@@ -14,7 +14,7 @@ class SudoMiddlewareTestCase(BaseTestCase):
     middleware = SudoMiddleware()
 
     def assertSignedCookieEqual(self, v1, v2, reason=None):
-        value, _, _ = v1.split(':')
+        value, _, _ = v1.split(":")
         return self.assertEqual(value, v2, reason)
 
     def test_process_request_raises_without_session(self):
@@ -41,13 +41,13 @@ class SudoMiddlewareTestCase(BaseTestCase):
         _, sudo = morsels[0]
         self.assertEqual(sudo.key, COOKIE_NAME)
         self.assertSignedCookieEqual(sudo.value, self.request._sudo_token)
-        self.assertEqual(sudo['max-age'], self.request._sudo_max_age)
-        self.assertTrue(sudo['httponly'])
+        self.assertEqual(sudo["max-age"], self.request._sudo_max_age)
+        self.assertTrue(sudo["httponly"])
 
         # Asserting that these are insecure together explicitly
         # since it's a big deal to not fuck up
         self.assertFalse(self.request.is_secure())
-        self.assertFalse(sudo['secure'])  # insecure request
+        self.assertFalse(sudo["secure"])  # insecure request
 
     def test_process_response_sets_secure_cookie(self):
         self.login()
@@ -60,7 +60,7 @@ class SudoMiddlewareTestCase(BaseTestCase):
         self.assertEqual(morsels[0][0], COOKIE_NAME)
         _, sudo = morsels[0]
         self.assertTrue(self.request.is_secure())
-        self.assertTrue(sudo['secure'])
+        self.assertTrue(sudo["secure"])
 
     def test_process_response_sudo_revoked_removes_cookie(self):
         self.login()
@@ -78,7 +78,7 @@ class SudoMiddlewareTestCase(BaseTestCase):
         # and telling it to expire
         self.assertEqual(sudo.key, COOKIE_NAME)
         self.assertFalse(sudo.value)
-        self.assertEqual(sudo['max-age'], 0)
+        self.assertEqual(sudo["max-age"], 0)
 
     def test_process_response_sudo_revoked_without_cookie(self):
         self.login()

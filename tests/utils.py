@@ -15,9 +15,7 @@ class GrantSudoPrivilegesTestCase(BaseTestCase):
     def assertRequestHasToken(self, request, max_age):
         token = request.session[COOKIE_NAME]
 
-        self.assertRegexpMatches(
-            token, r'^\w{12}$'
-        )
+        self.assertRegexpMatches(token, r"^\w{12}$")
         self.assertTrue(request._sudo)
         self.assertEqual(request._sudo_token, token)
         self.assertEqual(request._sudo_max_age, max_age)
@@ -39,7 +37,7 @@ class GrantSudoPrivilegesTestCase(BaseTestCase):
         self.assertRequestHasToken(self.request, 60)
 
     def test_without_user(self):
-        delattr(self.request, 'user')
+        delattr(self.request, "user")
         token = grant_sudo_privileges(self.request)
         self.assertIsNone(token)
 
@@ -78,26 +76,29 @@ class HasSudoPrivilegesTestCase(BaseTestCase):
     def test_cookie_and_token_match(self):
         self.login()
 
-        def get_signed_cookie(key, salt='', max_age=None):
-            return 'abc123'
-        self.request.session[COOKIE_NAME] = 'abc123'
+        def get_signed_cookie(key, salt="", max_age=None):
+            return "abc123"
+
+        self.request.session[COOKIE_NAME] = "abc123"
         self.request.get_signed_cookie = get_signed_cookie
         self.assertTrue(has_sudo_privileges(self.request))
 
     def test_cookie_and_token_mismatch(self):
         self.login()
 
-        def get_signed_cookie(key, salt='', max_age=None):
-            return 'nope'
-        self.request.session[COOKIE_NAME] = 'abc123'
+        def get_signed_cookie(key, salt="", max_age=None):
+            return "nope"
+
+        self.request.session[COOKIE_NAME] = "abc123"
         self.assertFalse(has_sudo_privileges(self.request))
 
     def test_cookie_bad_signature(self):
         self.login()
 
-        def get_signed_cookie(key, salt='', max_age=None):
+        def get_signed_cookie(key, salt="", max_age=None):
             raise BadSignature
-        self.request.session[COOKIE_NAME] = 'abc123'
+
+        self.request.session[COOKIE_NAME] = "abc123"
         self.assertFalse(has_sudo_privileges(self.request))
 
     def test_missing_keys(self):
@@ -108,10 +109,10 @@ class HasSudoPrivilegesTestCase(BaseTestCase):
 class IsSafeUrlTestCase(BaseTestCase):
     def test_success(self):
         urls = (
-            ('/', None),
-            ('/foo/', None),
-            ('/', 'example.com'),
-            ('http://example.com/foo', 'example.com'),
+            ("/", None),
+            ("/foo/", None),
+            ("/", "example.com"),
+            ("http://example.com/foo", "example.com"),
         )
         for url in urls:
             self.assertTrue(is_safe_url(*url))
@@ -119,13 +120,13 @@ class IsSafeUrlTestCase(BaseTestCase):
     def test_failure(self):
         urls = (
             (None, None),
-            ('', ''),
-            ('http://mattrobenolt.com/', 'example.com'),
-            ('///example.com/', None),
-            ('ftp://example.com', 'example.com'),
-            ('http://example.com\@mattrobenolt.com', 'example.com'),  # noqa: W605
-            ('http:///example.com', 'example.com'),
-            ('\x08//example.com', 'example.com'),
+            ("", ""),
+            ("http://mattrobenolt.com/", "example.com"),
+            ("///example.com/", None),
+            ("ftp://example.com", "example.com"),
+            ("http://example.com\@mattrobenolt.com", "example.com"),  # noqa: W605
+            ("http:///example.com", "example.com"),
+            ("\x08//example.com", "example.com"),
         )
         for url in urls:
             self.assertFalse(is_safe_url(*url))

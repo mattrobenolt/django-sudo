@@ -10,6 +10,7 @@ class StubPasswordBackend(object):
     Always authenticates when the password matches self.password
 
     """
+
     password = "stub"
 
     def authenticate(self, username, password):
@@ -23,7 +24,7 @@ class FooPasswordBackend(StubPasswordBackend):
 
 class BaseTestCase(unittest.TestCase):
     def setUp(self):
-        self.request = self.get('/foo')
+        self.request = self.get("/foo")
         self.request.session = {}
         self.setUser(AnonymousUser())
 

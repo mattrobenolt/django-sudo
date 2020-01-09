@@ -19,4 +19,4 @@ class SudoRequiredTestCase(BaseTestCase):
         self.request.is_sudo = lambda: False
         response = foo(self.request)
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['Location'], '/sudo/?next=/foo')
+        self.assertEqual(response["Location"], "/sudo/?next=/foo")

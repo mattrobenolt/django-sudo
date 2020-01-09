@@ -4,5 +4,5 @@ from sudo import views
 
 
 urlpatterns = [
-    url(r'^sudo/', views.sudo, name='sudo'),
+    url(r"^sudo/", views.sudo, name="sudo"),
 ]

@@ -2,7 +2,7 @@
 sudo.forms
 ~~~~~~~~~~
 
-:copyright: (c) 2014 by Matt Robenolt.
+:copyright: (c) 2020 by Matt Robenolt.
 :license: BSD, see LICENSE for more details.
 """
 from django import forms
@@ -14,7 +14,8 @@ class SudoForm(forms.Form):
     """
     A simple password input form used by the default :func:`~sudo.views.sudo` view.
     """
-    password = forms.CharField(label=_('Password'), widget=forms.PasswordInput)
+
+    password = forms.CharField(label=_("Password"), widget=forms.PasswordInput)
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
@@ -22,6 +23,6 @@ class SudoForm(forms.Form):
 
     def clean_password(self):
         username = self.user.get_username()
-        if auth.authenticate(username=username, password=self.data['password']):
-            return self.data['password']
-        raise forms.ValidationError(_('Incorrect password'))
+        if auth.authenticate(username=username, password=self.data["password"]):
+            return self.data["password"]
+        raise forms.ValidationError(_("Incorrect password"))

@@ -14,12 +14,17 @@ matrix:
       name: 'Linter (Python 2.7)'
       install:
         - pip install --upgrade -r dev-requirements.txt
-      script: flake8 sudo tests
+      script: flake8 sudo tests *.py
     - python: "3.7"
       name: 'Linter (Python 3.7)'
       install:
         - pip install --upgrade -r dev-requirements.txt
-      script: flake8 sudo tests
+      script: flake8 sudo tests *.py
+    - python: "3.7"
+      name: 'black'
+      install:
+        - pip install black==19.10b0
+      script: black --check sudo tests *.py
     - python: "2.7"
       name: "Python 2.7, Django 1.9"
       env: DJANGO="Django>=1.9,<1.10"
