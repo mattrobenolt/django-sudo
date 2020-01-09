@@ -7,7 +7,9 @@ sudo.utils
 """
 from django.core.signing import BadSignature
 from django.utils.crypto import get_random_string, constant_time_compare
-from django.utils.http import is_safe_url
+
+# alias for backwards compatibility with older django-sudo versions
+from django.utils.http import is_safe_url  # NOQA
 
 from sudo.settings import COOKIE_NAME, COOKIE_AGE, COOKIE_SALT
 
@@ -61,7 +63,3 @@ def has_sudo_privileges(request):
         except (KeyError, BadSignature):
             request._sudo = False
     return request._sudo
-
-
-# alias for backwards compatibility with older django-sudo versions
-is_safe_url = is_safe_url
