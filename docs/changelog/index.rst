@@ -1,6 +1,11 @@
 Changelog
 =========
 
+3.1.0
+~~~~~
+* Added support for Django 1.11
+* Removed vendored ``is_safe_url`` function because modern Django has a sufficient version. Import alias is left around.
+
 3.0.0
 ~~~~~
 * Added support for Django 1.10
