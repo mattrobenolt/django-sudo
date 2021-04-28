@@ -13,7 +13,7 @@ class StubPasswordBackend(object):
 
     password = "stub"
 
-    def authenticate(self, username, password):
+    def authenticate(self, username, password, request=None):
         if password == self.password:
             return User()
 

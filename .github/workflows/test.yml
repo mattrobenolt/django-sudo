@@ -15,8 +15,8 @@ jobs:
       matrix:
         # todo 3.8
         python-version: [3.6]
-        # todo more django versions
-        django-version: [">=1.11,<2"]
+        # todo ">=2.2,<2.3"
+        django-version: [">=1.11,<2", ">=2.0,<2.1", ">=2.1,<2.2"]
 
     steps:
     - uses: actions/checkout@v2
