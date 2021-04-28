@@ -2,5 +2,9 @@
 flake8==3.8.4
 pytest==6.1.0
 pytest-django==3.10.0
+
+# HACK: pytest-django just assumes six is installed without requiring it.
+six==1.15.0
+
 #sphinx
 #sphinx_rtd_theme
