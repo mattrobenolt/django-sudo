@@ -15,8 +15,10 @@ from sudo.settings import (
 )
 from sudo.utils import has_sudo_privileges
 
+from django.utils.deprecation import MiddlewareMixin
 
-class SudoMiddleware(object):
+
+class SudoMiddleware(MiddlewareMixin):
     """
     Middleware that contributes ``request.is_sudo()`` and sets the required
     cookie for sudo mode to work correctly.
@@ -29,7 +31,7 @@ class SudoMiddleware(object):
     def process_request(self, request):
         assert hasattr(request, "session"), (
             "The Sudo middleware requires session middleware to be installed."
-            "Edit your MIDDLEWARE_CLASSES setting to insert "
+            "Edit your MIDDLEWARE setting to insert "
             "'django.contrib.sessions.middleware.SessionMiddleware' before "
             "'sudo.middleware.SudoMiddleware'."
         )

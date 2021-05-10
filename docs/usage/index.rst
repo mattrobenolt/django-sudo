@@ -51,7 +51,7 @@ the :class:`~sudo.middleware.SudoMiddleware`. This is an shortcut for calling
 
 .. class:: sudo.middleware.SudoMiddleware
 
-    By default, you just need to add this into your ``MIDDLEWARE_CLASSES`` list.
+    By default, you just need to add this into your ``MIDDLEWARE`` list.
 
     .. method:: has_sudo_privileges(self, request)
 
