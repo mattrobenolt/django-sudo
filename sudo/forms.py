@@ -24,6 +24,11 @@ class SudoForm(forms.Form):
     def clean_password(self):
         username = self.user.get_username()
 
-        if auth.authenticate(request=None, username=username, password=self.data["password"]):
+        if auth.authenticate(
+            request=None,
+            username=username,
+            password=self.data["password"],
+        ):
             return self.data["password"]
+
         raise forms.ValidationError(_("Incorrect password"))
