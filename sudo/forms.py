@@ -23,7 +23,6 @@ class SudoForm(forms.Form):
 
     def clean_password(self):
         username = self.user.get_username()
-        # I think we need to pass the actual request object.
 
         if auth.authenticate(request=None, username=username, password=self.data["password"]):
             return self.data["password"]
