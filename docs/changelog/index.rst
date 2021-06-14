@@ -1,6 +1,11 @@
 Changelog
 =========
 
+4.0.0 (unreleased)
+~~~~~~~~~~~~~~~~~~
+* Added support for Django 2.0 - 2.2, Python 3.7 - 3.8
+* Dropped support for Django < 1.11
+
 3.1.0
 ~~~~~
 * Added support for Django 1.11

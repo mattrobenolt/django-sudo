@@ -5,7 +5,7 @@ INSTALLED_APPS = [
     "sudo",
 ]
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
 ]
@@ -35,7 +35,7 @@ def pytest_configure(config):
         DATABASE_NAME=":memory:",
         TEST_DATABASE_NAME=":memory:",
         INSTALLED_APPS=INSTALLED_APPS,
-        MIDDLEWARE_CLASSES=MIDDLEWARE_CLASSES,
+        MIDDLEWARE=MIDDLEWARE,
         PASSWORD_HASHERS=["django.contrib.auth.hashers.MD5PasswordHasher"],
         ROOT_URLCONF="tests.urls",
     )

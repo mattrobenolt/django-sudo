@@ -25,7 +25,7 @@ def grant_sudo_privileges(request, max_age=COOKIE_AGE):
     if user is None:
         return
 
-    if not user.is_authenticated():
+    if not user.is_authenticated:
         raise ValueError("User needs to be logged in to be elevated to sudo")
 
     # Token doesn't need to be unique,
@@ -53,7 +53,7 @@ def has_sudo_privileges(request):
     """
     if getattr(request, "_sudo", None) is None:
         try:
-            request._sudo = request.user.is_authenticated() and constant_time_compare(
+            request._sudo = request.user.is_authenticated and constant_time_compare(
                 request.get_signed_cookie(
                     COOKIE_NAME, salt=COOKIE_SALT, max_age=COOKIE_AGE
                 ),
