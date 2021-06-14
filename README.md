@@ -21,8 +21,8 @@ $ pip install django-sudo
 
 ## Compatibility
 
-* Django 1.9-1.11
-* Python 2.7, 3.6-3.7
+* Django 1.11 - 2.2
+* Python 3.6 - 3.8
 
 ## Resources
 

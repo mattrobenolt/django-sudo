@@ -15,7 +15,7 @@ class GrantSudoPrivilegesTestCase(BaseTestCase):
     def assertRequestHasToken(self, request, max_age):
         token = request.session[COOKIE_NAME]
 
-        self.assertRegexpMatches(token, r"^\w{12}$")
+        self.assertRegex(token, r"^\w{12}$")
         self.assertTrue(request._sudo)
         self.assertEqual(request._sudo_token, token)
         self.assertEqual(request._sudo_max_age, max_age)
@@ -108,25 +108,17 @@ class HasSudoPrivilegesTestCase(BaseTestCase):
 
 class IsSafeUrlTestCase(BaseTestCase):
     def test_success(self):
-        urls = (
-            ("/", None),
-            ("/foo/", None),
-            ("/", "example.com"),
-            ("http://example.com/foo", "example.com"),
-        )
-        for url in urls:
-            self.assertTrue(is_safe_url(*url))
+        self.assertTrue(is_safe_url("/", allowed_hosts=None))
+        self.assertTrue(is_safe_url("/foo/", allowed_hosts=None))
+        self.assertTrue(is_safe_url("/", allowed_hosts={"example.com"}))
+        self.assertTrue(is_safe_url("http://example.com/foo", allowed_hosts={"example.com"}))
 
     def test_failure(self):
-        urls = (
-            (None, None),
-            ("", ""),
-            ("http://mattrobenolt.com/", "example.com"),
-            ("///example.com/", None),
-            ("ftp://example.com", "example.com"),
-            ("http://example.com\@mattrobenolt.com", "example.com"),  # noqa: W605
-            ("http:///example.com", "example.com"),
-            ("\x08//example.com", "example.com"),
-        )
-        for url in urls:
-            self.assertFalse(is_safe_url(*url))
+        self.assertFalse(is_safe_url(None, allowed_hosts=None))
+        self.assertFalse(is_safe_url("", allowed_hosts={""}))
+        self.assertFalse(is_safe_url("http://mattrobenolt.com/", allowed_hosts={"example.com"}))
+        self.assertFalse(is_safe_url("///example.com/", allowed_hosts=None))
+        self.assertFalse(is_safe_url("ftp://example.com", allowed_hosts={"example.com"}))
+        self.assertFalse(is_safe_url("http://example.com\\@mattrobenolt.com", allowed_hosts={"example.com"}))
+        self.assertFalse(is_safe_url("http:///example.com", allowed_hosts={"example.com"}))
+        self.assertFalse(is_safe_url("\x08//example.com", allowed_hosts={"example.com"}))

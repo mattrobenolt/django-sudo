@@ -20,11 +20,11 @@ will automatically register the ``user_logged_in`` and ``user_logged_out`` signa
         'sudo',
     )
 
-Now we need to install the required middleware into ``MIDDLEWARE_CLASSES``:
+Now we need to install the required middleware into ``MIDDLEWARE``:
 
 .. code-block:: python
 
-    MIDDLEWARE_CLASSES = (
+    MIDDLEWARE = (
         # ...
         'sudo.middleware.SudoMiddleware',
     )

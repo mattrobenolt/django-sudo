@@ -1,11 +1,10 @@
 -e .
-flake8>=3.7.0,<3.8.0
-invoke==1.4.0
-pytest==4.6.5
-pytest-cov==2.5.1
-pytest-django==3.5.1
-sphinx
-sphinx_rtd_theme
-tox
-twine
-wheel
+flake8==3.8.4
+pytest==6.1.0
+pytest-django==3.10.0
+
+# HACK: pytest-django just assumes six is installed without requiring it.
+six==1.15.0
+
+#sphinx
+#sphinx_rtd_theme
